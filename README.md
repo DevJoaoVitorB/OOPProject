@@ -7,7 +7,7 @@
 
 | Data📅  | Versão💻 | Descrição📕 | Autor(es)🧑🏻‍💻|
 |:-------|:-------|:----------|:------|
-| 26/01/2025 |  **1.0** | Versão Inicial  | [_Gabriel Henrique Barbosa_](https://github.com/gbrielf) e [_João Vitor Bezerra_](https://github.com/DevJoaoVitorB) |
+| 30/01/2025 |  **1.0** | Versão Inicial  | [_Gabriel Henrique Barbosa_](https://github.com/gbrielf) e [_João Vitor Bezerra_](https://github.com/DevJoaoVitorB) |
 
 ### 1. Objetivo do Projeto 
 
@@ -35,42 +35,20 @@ O cenário de entreterimento virtual possui como um de seus âmagos os jogos vir
 
 A nostalgia por trás dos jogos antigos também é um dos motores que move o cenário de jogos eletrônicos. Muitos jogadores preferem uma experiência retrô com jogos que marcaram sua infância, e que fizeram daquele momento especial. Em virtude disso, a _Loja Virtual de Jogos_, além de corresponder as expectativas do público da nova geração gamer, eleva a experiência do público da velha guarda com uma experiência rêtro e nostálgica com jogos e consoles antigos com preços abaixo do mercado.
 
-### 5. Principais Necessidades dos Usuários
+### 5.	Visão Geral do Produto
 
-Para empresas e profissionais, a necessidade é divulgar sua disponibilidade de atendimentos para viabilizar, de forma mais eficiente, o atendimento dos seus clientes.
+Em resumo, o projeto busca alcançar o público apreciador de jogos virtuais que não possuem condições financeiras de obter as novas e antigas tecnólogias. Com preços abaixo do mercado, a _Loja Virtual de Jogos_ busca revolucionar o mercado de entreterimento gamer entrando na competição com grandes empresas detentoras das vendas dessas tecnólogias. O sistema proposto é um e-commerce de jogos e consoles de midia física e virtual com transações seguras, entraga rápida e preços abaixo do mercado.
 
-Para os clientes, as necessidades são encontrar profissionais e empresas prestadoras de serviço e agendar atendimentos com estes de acordo as disponibilidades de tempo dos envolvidos.
-
-### 6.	Alternativas Concorrentes
-
-As alternativas concorrentes são, em geral, específicas para uma empresa ou profissional. A ideia do sistema proposto é prover uma solução simples, acessível e padronizada para o agendamento de serviços e que pode ser utilizada por quaisquer profissionais e empresas.
-
-### 7.	Visão Geral do Produto
-
-Em resumo, o sistema de Agendamento de Serviços é uma aplicação que permite empresas e profissionais registrarem suas disponibilidades de atendimento aos seus clientes, de forma que estes possam consultar e agendar horários para realização de serviços.
-
-O sistema deve ter uma interface amigável e permitir o acesso concorrente de clientes para agendamento de um horário de atendimento.
-
-### 8. Requisitos Funcionais
+### 6. Requisitos Funcionais
 
 | Código | Nome | Descrição |
 |:---  |:--- |:--- |
-| RF01 | Entrar no sistema | Usuários devem logar no sistema para acessar as funcionalidades relacionadas ao agendamento |
-| RF02 | Cadastro de Funcionários | Administrador do sistema mantém o cadastro dos funcionários responsáveis pelo gerenciamento das agendas |
-| RF03 | Gerenciamento de Serviços |  Funcionário mantém a relação de serviços prestados pela empresa ou profissional |
-| RF04 | Gerenciamento da Agenda | Funcionário registra os horários disponíveis de atendimento, confirma e cancela o agendamento de clientes |
-| RF05 | Cadastro de Clientes | Cliente deve realizar o auto cadastramento |
-| RF06 | Consulta de Agendas | Cliente consulta agendas de atendimento dos serviços disponíveis, podendo agendar um serviço  |
-| RF07 | Consulta de Agendamento | Cliente consulta atendimentos agendados, podendo cancelar um agendamento |
-
-
-### 9. Requisitos Não-funcionais
-
- Código | Nome | Descrição | Categoria | Classificação
-|:---  |:--- |:--- |:--- |:--- |
-| RNF01 | Design responsivo | O sistema deve adaptar-se a qualquer tamanho de tela de dispositivo, seja, computador, tablets ou smart phones. | Usabilidade| Obrigatório |
-| RNF02 | Criptografia de dados| Senhas de usuários devem ser gravadas de forma criptografada no banco de dados. | Segurança | Obrigatório |
-| RNF03 | Controle de acesso | Só usuários autenticados podem ter acesso ao sistema, com exceção ao auto cadastramento do usuário. | Segurança | Obrigatório |
-| RNF04 | Tempo de resposta |A comunicação entre o servidor e o cliente deve ocorrer em tempo hábil | Performance | Desejável |
-| RNF05 | Sistema Web | A aplicação deve ser um site. | Arquitetura | Obrigatório |
-| RNF06 | Dados pessoais | Os clientes não devem visualizar dados de outros clientes (na agenda, por exemplo). | Privacidade | Obrigatório |
+| RF01 | Cadastro de Clientes | 📌Cliente deve realizar o seu cadastro no sistema |
+| RF02 | Entrar no sistema (Cliente) | 📌Cliente devem logar no sistema para acessar as funcionalidades de compra (lista catálogo de compra; adicionar, remover e lista produtos do carrinho e efetuar venda) |
+| RF03 | Gerenciamento de Sistema | 📌Administrador deve logar no sistema para acessar as funcionalidades de gerenciamento |
+| RF04 | Persistência de Cadastro | 📌Métodos de para inserir, remove, listar e atualizar os cadastros de clientes |
+| RF05 | Persistência de Categorias | 📌Métodos de para inserir, remove, listar e atualizar as categorias |
+| RF06 | Persistência de Produtos | 📌Métodos de para inserir, remove, listar e atualizar os produtos  |
+| RF07 | Obter Relátorio Parcial de Vendas | 📌Receber o relatório parcial de todas as vendas dos usuários cadastrados na loja |
+| RF08 | Obter Relátorio Total de Vendas | 📌Receber o relatório total de todas as vendas dos usuários cadastrados na loja |
+| RF09 | Sistema de Pagamento | 📌Cliente pode escolher a forma de pagamento. Em produtos digitais irá ser gerado um código de resgate e para produtos físicos, pagamento de uma taxa de entrega |
