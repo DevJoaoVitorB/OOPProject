@@ -37,18 +37,19 @@ A nostalgia por trás dos jogos antigos também é um dos motores que move o cen
 
 ### 5.	Visão Geral do Produto
 
-Em resumo, o projeto busca alcançar o público apreciador de jogos virtuais que não possuem condições financeiras de obter as novas e antigas tecnólogias. Com preços abaixo do mercado, a _Loja Virtual de Jogos_ busca revolucionar o mercado de entreterimento gamer entrando na competição com grandes empresas detentoras das vendas dessas tecnólogias. O sistema proposto é um e-commerce de jogos e consoles de midia física e virtual com transações seguras, entraga rápida e preços abaixo do mercado.
+Em resumo, o projeto busca alcançar o público apreciador de jogos virtuais que não possuem condições financeiras de obter as novas e antigas tecnólogias. Com preços abaixo do mercado, a _Loja Virtual de Jogos_ busca revolucionar o mercado de entreterimento gamer entrando na competição com grandes empresas detentoras das vendas dessas tecnólogias. O sistema proposto é um e-commerce de jogos e consoles de midia física e virtual com transações seguras, entrega rápida e preços abaixo do mercado.
 
 ### 6. Requisitos Funcionais
 
 | Código | Nome | Descrição |
 |:---  |:--- |:--- |
 | RF01 | Cadastro de Clientes | 📌Cliente deve realizar o seu cadastro no sistema |
-| RF02 | Entrar no sistema (Cliente) | 📌Cliente devem logar no sistema para acessar as funcionalidades de compra (lista catálogo de compra; adicionar, remover e lista produtos do carrinho e efetuar venda) |
-| RF03 | Gerenciamento de Sistema | 📌Administrador deve logar no sistema para acessar as funcionalidades de gerenciamento |
-| RF04 | Persistência de Cadastro | 📌Métodos de para inserir, remove, listar e atualizar os cadastros de clientes |
-| RF05 | Persistência de Categorias | 📌Métodos de para inserir, remove, listar e atualizar as categorias |
-| RF06 | Persistência de Produtos | 📌Métodos de para inserir, remove, listar e atualizar os produtos  |
-| RF07 | Obter Relátorio Parcial de Vendas | 📌Receber o relatório parcial de todas as vendas dos usuários cadastrados na loja |
-| RF08 | Obter Relátorio Total de Vendas | 📌Receber o relatório total de todas as vendas dos usuários cadastrados na loja |
-| RF09 | Sistema de Pagamento | 📌Cliente pode escolher a forma de pagamento. Em produtos digitais irá ser gerado um código de resgate e para produtos físicos, pagamento de uma taxa de entrega |
+| RF02 | Cadastro do Administrador | 📌Administrador deve realizar o seu cadastro no sistema |
+| RF03 | Entrar no sistema (Cliente) | 📌Cliente devem logar no sistema para acessar as funcionalidades de compra (lista catálogo de compra; adicionar, remover e lista produtos do carrinho e efetuar venda) |
+| RF04 | Gerenciamento de Sistema | 📌Administrador deve logar no sistema para acessar as funcionalidades de gerenciamento |
+| RF05 | Persistência de Cadastro | 📌Métodos de para inserir, remove, listar e atualizar os cadastros de clientes |
+| RF06 | Persistência de Categorias | 📌Métodos de para inserir, remove, listar e atualizar as categorias |
+| RF07 | Persistência de Produtos | 📌Métodos de para inserir, remove, listar e atualizar os produtos  |
+| RF08 | Obter Relátorio Parcial de Vendas | 📌Receber o relatório parcial de todas as vendas dos usuários cadastrados na loja |
+| RF09 | Obter Relátorio Total de Vendas | 📌Receber o relatório total de todas as vendas dos usuários cadastrados na loja |
+| RF10 | Sistema de Pagamento | 📌Cliente pode escolher a forma de pagamento. Em produtos digitais irá ser gerado um código de resgate e para produtos físicos, pagamento de uma taxa de entrega |
