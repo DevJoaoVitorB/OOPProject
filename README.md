@@ -5,7 +5,7 @@
 
 ### 📌Histórico da Revisão 
 
-| Data📅  | Versão💻 | Descrição📕 | Autor(es)🧑🏻‍💻|
+| Data📅  | Versão💻 | Descrição📕 | Autor(es)👨🏻‍💻 |
 |:-------|:-------|:----------|:------|
 | 30/01/2025 |  **1.0** | Versão Inicial  | [_Gabriel Henrique Barbosa_](https://github.com/gbrielf) e [_João Vitor Bezerra_](https://github.com/DevJoaoVitorB) |
 
