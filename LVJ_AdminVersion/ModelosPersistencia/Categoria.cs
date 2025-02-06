@@ -17,7 +17,7 @@ class Categoria
         {
             return $"{id} - {descricao} \n";
         } else {
-            return $"{id} - {descricao} {desconto}% de Desconto \n";
+            return $"{id} - {descricao} - {desconto}% de Desconto \n";
         }
     }
 }
