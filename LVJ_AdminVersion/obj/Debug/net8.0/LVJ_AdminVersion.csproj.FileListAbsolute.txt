@@ -1,0 +1,15 @@
+/workspaces/OOPProject/LVJ_AdminVersion/obj/Debug/net8.0/LVJ_AdminVersion.GeneratedMSBuildEditorConfig.editorconfig
+/workspaces/OOPProject/LVJ_AdminVersion/obj/Debug/net8.0/LVJ_AdminVersion.AssemblyInfoInputs.cache
+/workspaces/OOPProject/LVJ_AdminVersion/obj/Debug/net8.0/LVJ_AdminVersion.AssemblyInfo.cs
+/workspaces/OOPProject/LVJ_AdminVersion/obj/Debug/net8.0/LVJ_AdminVersion.csproj.CoreCompileInputs.cache
+/workspaces/OOPProject/LVJ_AdminVersion/obj/Debug/net8.0/LVJ_AdminVersion.sourcelink.json
+/workspaces/OOPProject/LVJ_AdminVersion/bin/Debug/net8.0/LVJ_AdminVersion
+/workspaces/OOPProject/LVJ_AdminVersion/bin/Debug/net8.0/LVJ_AdminVersion.deps.json
+/workspaces/OOPProject/LVJ_AdminVersion/bin/Debug/net8.0/LVJ_AdminVersion.runtimeconfig.json
+/workspaces/OOPProject/LVJ_AdminVersion/bin/Debug/net8.0/LVJ_AdminVersion.dll
+/workspaces/OOPProject/LVJ_AdminVersion/bin/Debug/net8.0/LVJ_AdminVersion.pdb
+/workspaces/OOPProject/LVJ_AdminVersion/obj/Debug/net8.0/LVJ_AdminVersion.dll
+/workspaces/OOPProject/LVJ_AdminVersion/obj/Debug/net8.0/refint/LVJ_AdminVersion.dll
+/workspaces/OOPProject/LVJ_AdminVersion/obj/Debug/net8.0/LVJ_AdminVersion.pdb
+/workspaces/OOPProject/LVJ_AdminVersion/obj/Debug/net8.0/LVJ_AdminVersion.genruntimeconfig.cache
+/workspaces/OOPProject/LVJ_AdminVersion/obj/Debug/net8.0/ref/LVJ_AdminVersion.dll

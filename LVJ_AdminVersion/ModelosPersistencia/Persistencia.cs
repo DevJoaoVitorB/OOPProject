@@ -4,7 +4,7 @@ abstract class Persistencia
 {
     protected List<object> objetos = new List<object>();
 
-    public virtual void Inserir(object objeto)
+    public void Inserir(object objeto)
     {
         // Abrir o Arquivo .json com Objetos da Lista de Objetos
         Abrir();
@@ -17,7 +17,7 @@ abstract class Persistencia
         Salvar();
     }
 
-    public virtual void Remover(object objeto)
+    public void Remover(object objeto)
     {
         // Remover o Objeto da Lista de Objetos e Salvar
         if(objeto != null)
@@ -27,7 +27,7 @@ abstract class Persistencia
         }
     }
 
-    public virtual void Atualizar(object objeto)
+    public void Atualizar(object objeto)
     {
         // Atualizar as Propriedades do Objeto da Lista de Objetos e Salvar
         object x = ListarId(objeto.id);
@@ -39,14 +39,14 @@ abstract class Persistencia
         }
     }
 
-    public virtual List<object> Listar()
+    public List<object> Listar()
     {
         // Retorna a Lista de Objetos
         Abrir();
         return objetos;
     }
 
-    public virtual object ListarId(int id)
+    public object ListarId(int id)
     {
         // Retornar o Objeto que possui o ID informado
         Abrir();
@@ -70,14 +70,14 @@ class Usuarios : Persistencia
         try
         {
             string adicionar = File.ReadAllText("lista_usuarios.json");
-            objetos = JsonSerializer.Deserialize<List<Usuario>>(adicionar);
+            objetos = JsonSerializer.Deserialize<List<object>>(adicionar);
         } catch (FileNotFoundException) {}
     }
 
     public override void Salvar()
     {
         // Salvar os Dados no Arquivo .json
-        string salvar = JsonSerializer.Serialize<List<Usuario>>(objetos);
+        string salvar = JsonSerializer.Serialize<List<object>>(objetos);
         File.WriteAllText("lista_usuarios.json", salvar);
     }
 }
