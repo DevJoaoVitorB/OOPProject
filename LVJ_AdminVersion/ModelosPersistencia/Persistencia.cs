@@ -1,23 +1,23 @@
 using System.Text.Json;
 
-abstract class Persistencia
+abstract class Persistencia<T>
 {
-    protected List<object> objetos = new List<object>();
+    protected List<T> objetos = new List<T>();
 
-    public void Inserir(object objeto)
+    public void Inserir(T objeto)
     {
         // Abrir o Arquivo .json com Objetos da Lista de Objetos
         Abrir();
         // Obter o maior ID da Lista de Objetos e somar +1
-        int id = 0;
-        foreach (object x in objetos) if(x.id > id) id = x.id;
-        objeto.id = id + 1;
+        int id = objetos.Count == 0 ? 0 : objetos.Max(x => (int)x.GetType().GetProperty("id").GetValue(x));
+        var idObjeto = objeto.GetType().GetProperty("id");
+        if(idObjeto != null) idObjeto.SetValue(objeto, id + 1);
         // Adicionar o Objeto na Lista de Objetos e Salvar
         objetos.Add(objeto);
         Salvar();
     }
 
-    public void Remover(object objeto)
+    public void Remover(T objeto)
     {
         // Remover o Objeto da Lista de Objetos e Salvar
         if(objeto != null)
@@ -27,31 +27,32 @@ abstract class Persistencia
         }
     }
 
-    public void Atualizar(object objeto)
+    public void Atualizar(T objeto)
     {
         // Atualizar as Propriedades do Objeto da Lista de Objetos e Salvar
-        object x = ListarId(objeto.id);
+        int id = (int)objeto.GetType().GetProperty("id").GetValue(objeto);
+        var x = ListarId(id);
+
         if(x != null)
         {
-            objetos.Remove(x);
-            objetos.Add(objeto);
+            int index = objetos.IndexOf(x);
+            objetos[index] = objeto;
             Salvar();
         }
     }
 
-    public List<object> Listar()
+    public List<T> Listar()
     {
         // Retorna a Lista de Objetos
         Abrir();
         return objetos;
     }
 
-    public object ListarId(int id)
+    public T ListarId(int id)
     {
         // Retornar o Objeto que possui o ID informado
         Abrir();
-        foreach (object x in objetos) if(x.id == id) return x;
-        return null;
+        return objetos.FirstOrDefault(x => (int)x.GetType().GetProperty("id").GetValue(x) == id);
     }
 
     public abstract void Abrir(); 
@@ -61,7 +62,7 @@ abstract class Persistencia
 
 // Classes que possuem Herança com a Classe Persistencia
 
-class Usuarios : Persistencia
+class Usuarios : Persistencia<Usuario>
 {
     public override void Abrir()
     {
@@ -70,19 +71,19 @@ class Usuarios : Persistencia
         try
         {
             string adicionar = File.ReadAllText("lista_usuarios.json");
-            objetos = JsonSerializer.Deserialize<List<object>>(adicionar);
+            objetos = JsonSerializer.Deserialize<List<Usuario>>(adicionar);
         } catch (FileNotFoundException) {}
     }
 
     public override void Salvar()
     {
         // Salvar os Dados no Arquivo .json
-        string salvar = JsonSerializer.Serialize<List<object>>(objetos);
+        string salvar = JsonSerializer.Serialize<List<Usuario>>(objetos);
         File.WriteAllText("lista_usuarios.json", salvar);
     }
 }
 
-class Categorias : Persistencia
+class Categorias : Persistencia<Categoria>
 {
     public override void Abrir()
     {
@@ -91,19 +92,19 @@ class Categorias : Persistencia
         try
         {
             string adicionar = File.ReadAllText("lista_categorias.json");
-            objetos = JsonSerializer.Deserialize<List<object>>(adicionar);
+            objetos = JsonSerializer.Deserialize<List<Categoria>>(adicionar);
         } catch (FileNotFoundException) {}
     }
 
     public override void Salvar()
     {
         // Salvar os Dados no Arquivo .json
-        string salvar = JsonSerializer.Serialize<List<object>>(objetos);
+        string salvar = JsonSerializer.Serialize<List<Categoria>>(objetos);
         File.WriteAllText("lista_categorias.json", salvar);
     }
 }
 
-class Produtos : Persistencia
+class Produtos : Persistencia<Produto>
 {
     public override void Abrir()
     {
@@ -112,19 +113,19 @@ class Produtos : Persistencia
         try
         {
             string adicionar = File.ReadAllText("lista_produtos.json");
-            objetos = JsonSerializer.Deserialize<List<object>>(adicionar);
+            objetos = JsonSerializer.Deserialize<List<Produto>>(adicionar);
         } catch (FileNotFoundException) {}
     }
 
     public override void Salvar()
     {
         // Salvar os Dados no Arquivo .json
-        string salvar = JsonSerializer.Serialize<List<object>>(objetos);
+        string salvar = JsonSerializer.Serialize<List<Produto>>(objetos);
         File.WriteAllText("lista_produtos.json", salvar);
     }
 }
 
-class ProdutosVendas : Persistencia
+class ProdutosVendas : Persistencia<ProdutoVenda>
 {
     public override void Abrir()
     {
@@ -133,19 +134,19 @@ class ProdutosVendas : Persistencia
         try
         {
             string adicionar = File.ReadAllText("lista_produtos_vendas.json");
-            objetos = JsonSerializer.Deserialize<List<object>>(adicionar);
+            objetos = JsonSerializer.Deserialize<List<ProdutoVenda>>(adicionar);
         } catch (FileNotFoundException) {}
     }
 
     public override void Salvar()
     {
         // Salvar os Dados no Arquivo .json
-        string salvar = JsonSerializer.Serialize<List<object>>(objetos);
+        string salvar = JsonSerializer.Serialize<List<ProdutoVenda>>(objetos);
         File.WriteAllText("lista_produtos_vendas.json", salvar);
     }
 }
 
-class Vendas : Persistencia
+class Vendas : Persistencia<Venda>
 {
     public override void Abrir()
     {
@@ -154,19 +155,19 @@ class Vendas : Persistencia
         try
         {
             string adicionar = File.ReadAllText("lista_vendas.json");
-            objetos = JsonSerializer.Deserialize<List<object>>(adicionar);
+            objetos = JsonSerializer.Deserialize<List<Venda>>(adicionar);
         } catch (FileNotFoundException) {}
     }
 
     public override void Salvar()
     {
         // Salvar os Dados no Arquivo .json
-        string salvar = JsonSerializer.Serialize<List<object>>(objetos);
+        string salvar = JsonSerializer.Serialize<List<Venda>>(objetos);
         File.WriteAllText("lista_vendas.json", salvar);
     }
 }
 
-class FormasPagamento : Persistencia
+class FormasPagamento : Persistencia<FormaPagamento>
 {
     public override void Abrir()
     {
@@ -175,14 +176,14 @@ class FormasPagamento : Persistencia
         try
         {
             string adicionar = File.ReadAllText("lista_formas_pagamento.json");
-            objetos = JsonSerializer.Deserialize<List<object>>(adicionar);
+            objetos = JsonSerializer.Deserialize<List<FormaPagamento>>(adicionar);
         } catch (FileNotFoundException) {}
     }
 
     public override void Salvar()
     {
         // Salvar os Dados no Arquivo .json
-        string salvar = JsonSerializer.Serialize<List<object>>(objetos);
+        string salvar = JsonSerializer.Serialize<List<FormaPagamento>>(objetos);
         File.WriteAllText("lista_formas_pagamento.json", salvar);
     }
 }
