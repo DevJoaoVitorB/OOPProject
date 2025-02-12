@@ -13,7 +13,7 @@ static class UIAdmin
         FormasPagamento c = new FormasPagamento();
 
         // Classe de Modelo
-        Usuario x1 = new Usuario(1, "Ghost", "ghost000@email.com", "ghost123456789", "", "", "", true);
+        Usuario x1 = new Usuario(0, "Ghost", "ghost000@email.com", "ghost123456789", "", "", "", true);
         Categoria y1 = new Categoria(1, "Sony", 10);
         Produto z1 = new Produto(1, "PlayStation 5", 3199.99, 10, false, 1);
         ProdutoVenda a1 = new ProdutoVenda(1, 1, 3199.99, 2879.99, false, "", false, false, 1, 1);
