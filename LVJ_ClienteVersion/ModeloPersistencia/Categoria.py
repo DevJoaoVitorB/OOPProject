@@ -31,5 +31,3 @@ class Categoria:
             return f"{self._id} - {self._descricao}\n"
         else:
             return f"{self._id} - {self._descricao} - {self._desconto}% de Desconto \n"
-    #     }
-    # }

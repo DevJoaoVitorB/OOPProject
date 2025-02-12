@@ -14,7 +14,6 @@ class FormaPagamento:
     def id(self, novo_id):
         self._id = novo_id
 
-    # public string descricao { get; set; }
     @property
     def descricao(self):
         return self._descricao

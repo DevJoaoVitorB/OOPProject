@@ -1,6 +1,6 @@
 class Produto:
 
-    def __init__(id, descricao, preco, estoque, digital, idCategoria):
+    def __init__(self, id, descricao, preco, estoque, digital, idCategoria):
         self.id = id
         self.descricao = descricao
         self.preco = preco
@@ -10,7 +10,6 @@ class Produto:
 
 
 
-    #     public int id { get; set; }
     @property
     def id(self):
         return self._id

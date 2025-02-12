@@ -1,4 +1,15 @@
 class Usuario:
+    def __init__(self, id, nome, email, senha, endereco, cep, cpf, admin):
+        self.id = id
+        self.nome = nome
+        self.email = email
+        self.senha = senha
+        self.endereco = endereco
+        self.cep = cep
+        self.cpf = cpf
+        self.admin = admin
+            
+    
     @property
     def id (self):
         return self._id
