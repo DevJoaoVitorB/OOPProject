@@ -27,6 +27,6 @@ class ProdutoVenda
 
     public override string ToString()
     {
-        return $"\t\nQuantidade: {quantidade} \n\tPreço do Produto: R${precoProduto} \n\tPreço Total: R${precoTotal} \n";   
+        return $"\n\tQuantidade: {quantidade} \n\tPreço do Produto: R${precoProduto:f2} \n\tPreço Total: R${precoTotal:f2} \n";   
     }
 }

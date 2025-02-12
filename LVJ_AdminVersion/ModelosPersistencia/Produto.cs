@@ -20,9 +20,9 @@ class Produto
     public override string ToString()
     {
         if(digital == true){
-            return $"{id} - {descricao} \n\tPreço: R${preco} \n\tEstoque: {estoque} \n\tVersão: Digital \n";
+            return $"{id} - {descricao} \n\tPreço: R${preco:f2} \n\tEstoque: {estoque} \n\tVersão: Digital \n";
         } else {
-            return $"{id} - {descricao} \n\tPreço: R${preco} \n\tEstoque: {estoque} \n\tVersão: Física \n";
+            return $"{id} - {descricao} \n\tPreço: R${preco:f2} \n\tEstoque: {estoque} \n\tVersão: Física \n";
         }
     }
 }

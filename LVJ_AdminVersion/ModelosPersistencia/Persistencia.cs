@@ -70,16 +70,24 @@ class Usuarios : Persistencia<Usuario>
         objetos.Clear();
         try
         {
-            string adicionar = File.ReadAllText("lista_usuarios.json");
+            // Criar o Caminho para o Banco de Dados!
+            string caminho = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName, "Banco_Dados", "lista_usuarios.json");
+            // Abrir o Arquivo .json
+            string adicionar = File.ReadAllText(caminho);
             objetos = JsonSerializer.Deserialize<List<Usuario>>(adicionar);
-        } catch (FileNotFoundException) {}
+        } catch (FileNotFoundException) {} catch (Exception) {}
     }
 
     public override void Salvar()
     {
-        // Salvar os Dados no Arquivo .json
-        string salvar = JsonSerializer.Serialize<List<Usuario>>(objetos);
-        File.WriteAllText("lista_usuarios.json", salvar);
+        try
+        {
+            // Criar o Caminho para o Banco de Dados!
+            string caminho = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName, "Banco_Dados", "lista_usuarios.json");
+            // Salvar os Dados no Arquivo .json
+            string salvar = JsonSerializer.Serialize<List<Usuario>>(objetos);
+            File.WriteAllText(caminho, salvar);
+        } catch (Exception) {}
     }
 }
 
@@ -91,16 +99,24 @@ class Categorias : Persistencia<Categoria>
         objetos.Clear();
         try
         {
-            string adicionar = File.ReadAllText("lista_categorias.json");
+            // Criar o Caminho para o Banco de Dados!
+            string caminho = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName, "Banco_Dados", "lista_categorias.json");
+            // Abrir o Arquivo .json
+            string adicionar = File.ReadAllText(caminho);
             objetos = JsonSerializer.Deserialize<List<Categoria>>(adicionar);
-        } catch (FileNotFoundException) {}
+        } catch (FileNotFoundException) {} catch (Exception) {}
     }
 
     public override void Salvar()
     {
-        // Salvar os Dados no Arquivo .json
-        string salvar = JsonSerializer.Serialize<List<Categoria>>(objetos);
-        File.WriteAllText("lista_categorias.json", salvar);
+        try
+        {
+            // Criar o Caminho para o Banco de Dados!
+            string caminho = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName, "Banco_Dados", "lista_categorias.json");
+            // Salvar os Dados no Arquivo .json
+            string salvar = JsonSerializer.Serialize<List<Categoria>>(objetos);
+            File.WriteAllText(caminho, salvar);
+        } catch (Exception) {}
     }
 }
 
@@ -112,16 +128,24 @@ class Produtos : Persistencia<Produto>
         objetos.Clear();
         try
         {
-            string adicionar = File.ReadAllText("lista_produtos.json");
+            // Criar o Caminho para o Banco de Dados!
+            string caminho = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName, "Banco_Dados", "lista_produtos.json");
+            // Abrir o Arquivo .json
+            string adicionar = File.ReadAllText(caminho);
             objetos = JsonSerializer.Deserialize<List<Produto>>(adicionar);
-        } catch (FileNotFoundException) {}
+        } catch (FileNotFoundException) {} catch (Exception) {}
     }
 
     public override void Salvar()
     {
-        // Salvar os Dados no Arquivo .json
-        string salvar = JsonSerializer.Serialize<List<Produto>>(objetos);
-        File.WriteAllText("lista_produtos.json", salvar);
+        try
+        {
+            // Criar o Caminho para o Banco de Dados!
+            string caminho = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName, "Banco_Dados", "lista_produtos.json");
+            // Salvar os Dados no Arquivo .json
+            string salvar = JsonSerializer.Serialize<List<Produto>>(objetos);
+            File.WriteAllText(caminho, salvar);
+        } catch (Exception) {}
     }
 }
 
@@ -133,16 +157,24 @@ class ProdutosVendas : Persistencia<ProdutoVenda>
         objetos.Clear();
         try
         {
-            string adicionar = File.ReadAllText("lista_produtos_vendas.json");
+            // Criar o Caminho para o Banco de Dados!
+            string caminho = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName, "Banco_Dados", "lista_produtos_vendas.json");
+            // Abrir o Arquivo .json
+            string adicionar = File.ReadAllText(caminho);
             objetos = JsonSerializer.Deserialize<List<ProdutoVenda>>(adicionar);
-        } catch (FileNotFoundException) {}
+        } catch (FileNotFoundException) {} catch (Exception) {}
     }
 
     public override void Salvar()
     {
-        // Salvar os Dados no Arquivo .json
-        string salvar = JsonSerializer.Serialize<List<ProdutoVenda>>(objetos);
-        File.WriteAllText("lista_produtos_vendas.json", salvar);
+        try
+        {
+            // Criar o Caminho para o Banco de Dados!
+            string caminho = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName, "Banco_Dados", "lista_produtos_vendas.json");
+            // Salvar os Dados no Arquivo .json
+            string salvar = JsonSerializer.Serialize<List<ProdutoVenda>>(objetos);
+            File.WriteAllText(caminho, salvar);
+        } catch (Exception) {}
     }
 }
 
@@ -154,16 +186,24 @@ class Vendas : Persistencia<Venda>
         objetos.Clear();
         try
         {
-            string adicionar = File.ReadAllText("lista_vendas.json");
+            // Criar o Caminho para o Banco de Dados!
+            string caminho = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName, "Banco_Dados", "lista_vendas.json");
+            // Abrir o Arquivo .json
+            string adicionar = File.ReadAllText(caminho);
             objetos = JsonSerializer.Deserialize<List<Venda>>(adicionar);
-        } catch (FileNotFoundException) {}
+        } catch (FileNotFoundException) {} catch (Exception) {}
     }
 
     public override void Salvar()
     {
-        // Salvar os Dados no Arquivo .json
-        string salvar = JsonSerializer.Serialize<List<Venda>>(objetos);
-        File.WriteAllText("lista_vendas.json", salvar);
+        try
+        {
+            // Criar o Caminho para o Banco de Dados!
+            string caminho = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName, "Banco_Dados", "lista_vendas.json");
+            // Salvar os Dados no Arquivo .json
+            string salvar = JsonSerializer.Serialize<List<Venda>>(objetos);
+            File.WriteAllText(caminho, salvar);
+        } catch (Exception) {}
     }
 }
 
@@ -175,15 +215,23 @@ class FormasPagamento : Persistencia<FormaPagamento>
         objetos.Clear();
         try
         {
-            string adicionar = File.ReadAllText("lista_formas_pagamento.json");
+            // Criar o Caminho para o Banco de Dados!
+            string caminho = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName, "Banco_Dados", "lista_formas_pagamento.json");
+            // Abrir o Arquivo .json
+            string adicionar = File.ReadAllText(caminho);
             objetos = JsonSerializer.Deserialize<List<FormaPagamento>>(adicionar);
-        } catch (FileNotFoundException) {}
+        } catch (FileNotFoundException) {} catch (Exception) {}
     }
 
     public override void Salvar()
     {
-        // Salvar os Dados no Arquivo .json
-        string salvar = JsonSerializer.Serialize<List<FormaPagamento>>(objetos);
-        File.WriteAllText("lista_formas_pagamento.json", salvar);
+        try
+        {
+            // Criar o Caminho para o Banco de Dados!
+            string caminho = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName, "Banco_Dados", "lista_formas_pagamento.json");
+            // Salvar os Dados no Arquivo .json
+            string salvar = JsonSerializer.Serialize<List<FormaPagamento>>(objetos);
+            File.WriteAllText(caminho, salvar);
+        } catch (Exception) {}
     }
 }

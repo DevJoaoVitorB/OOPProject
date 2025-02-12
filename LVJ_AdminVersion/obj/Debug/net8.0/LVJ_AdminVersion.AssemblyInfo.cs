@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LVJ_AdminVersion")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5e7dc897cb2e7edcc1a2c75ec77477a7d20bf9a7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e817c6afe54f14037b8145a80af970fb9455dc7a")]
 [assembly: System.Reflection.AssemblyProductAttribute("LVJ_AdminVersion")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LVJ_AdminVersion")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

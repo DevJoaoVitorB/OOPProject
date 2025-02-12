@@ -27,9 +27,9 @@ class Venda
     {
         if(carrinho == true)
         {
-           return $"{id} - {dia} \n\tStatus: Aberta \n\tFrete: R${frete} \n\tTotal a Pagar: R${total} \n\tParcela: R${parcela} \n\tData de Vencimento: {vencimento} \n";   
+           return $"{id} - {dia} \n\tStatus: Aberta \n\tFrete: R${frete:f2} \n\tTotal a Pagar: R${total:f2} \n\tParcela: R${parcela:f2} \n\tData de Vencimento: {vencimento} \n";   
         } else {
-            return $"{id} - {dia} \n\tStatus: Fechada \n\tFrete: R${frete} \n\tTotal a Pagar: R${total} \n\tParcela: R${parcela} \n\tData de Vencimento: {vencimento} \n";   
+            return $"{id} - {dia} \n\tStatus: Fechada \n\tFrete: R${frete:f2} \n\tTotal a Pagar: R${total:f2} \n\tParcela: R${parcela:f2} \n\tData de Vencimento: {vencimento} \n";   
         }
     }
 }
