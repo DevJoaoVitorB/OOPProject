@@ -1,26 +1,32 @@
-from ModeloPersistencia.Usuario import Usuario
-from ModeloPersistencia.Categoria import Categoria
-from ModeloPersistencia.Persistencia import Persistencia
-from ModeloPersistencia.Produto import Produto
-from ModeloPersistencia.ProdutoVenda import ProdutoVenda
-from ModeloPersistencia.Venda import Venda
-from ModeloPersistencia.FormaPagamento import FormaPagamento
+from usuario_model import Usuario
+from categoria_model import Categoria
+from persistencia_model import *
+from produto_model import Produto
+from produto_venda_model import ProdutoVenda
+from venda_model import Venda
+from forma_pagamento_model import FormaPagamento
 
 class UIAdmin:
     @staticmethod
-    def MainUI():
-        x = Usuario()
-        y = Categoria()
-        z = Produto()
-        a = ProdutoVenda()
-        b = Venda()
-        c = FormaPagamento()
+    def main_ui():
+        x = Usuarios()
+        y = Categorias()
+        z = Produtos()
+        a = ProdutoVendas()
+        b = Vendas()
+        c = FormaPagamentos()
+        x.inserir(Usuario(1, "Gb10", "gb10@email.com", "gb10", "", "", "", True))
+        y.inserir(Categoria(1, "Apple", 10))
+        z.inserir(Produto(1, "XBOX", 3199.99, 10, False, 1))
+        a.inserir(ProdutoVenda(1, 1, 3199.99, 2879.99, False, "", False, False, 1, 1))
+        b.inserir(Venda(1, "1000-12-12", True, 13, 2591.99, 1, "2025-02-12", 1, "cartão"))
+        c.inserir(FormaPagamento(1, "A Vista", 1, -10, 0))
 
         x1 = Usuario(1, "Ghost", "ghost000@email.com", "ghost123456789", "", "", "", True)
         y1 = Categoria(1, "Sony", 10)
         z1 = Produto(1, "PlayStation 5", 3199.99, 10, False, 1)
         a1 = ProdutoVenda(1, 1, 3199.99, 2879.99, False, "", False, False, 1, 1)
-        b1 = Venda(1, "2025-02-12", True, 13, 2591.99, 2591.99, "2025-02-12", 1, 1)
+        b1 = Venda(1, "2025-02-12", True, 13, 2591.99, 1, "2025-02-12", 1, "cartão")
         c1 = FormaPagamento(1, "A Vista", 1, -10, 0)
 
         x.inserir(x1)
@@ -52,4 +58,4 @@ class UIAdmin:
 
 # Chamando a função principal
 if __name__ == "__main__":
-    UIAdmin.MainUI()
+    UIAdmin.main_ui()

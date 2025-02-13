@@ -1,14 +1,14 @@
 class ProdutoVenda:
-    def __init__(self, id, quantidade, precoProduto, precoTotal, resgate, codigo, enviado,recebido, idProduto, idVenda):
+    def __init__(self, id, quantidade, preco_produto, preco_total, resgate, codigo, enviado,recebido, idProduto, idVenda):
         self.id = id
         self.quantidade = quantidade
-        self.precoProduto = precoProduto
-        self.precoTotal = precoTotal
+        self.preco_produto = preco_produto
+        self.preco_total = preco_total
         self.resgate = resgate
         self.codigo = codigo
         self.enviado = enviado
         self.recebido = recebido
-        self.idProduto = idProduto
+        self.id_produto = idProduto
         self.idVenda = idVenda
     @property
     def id(self):

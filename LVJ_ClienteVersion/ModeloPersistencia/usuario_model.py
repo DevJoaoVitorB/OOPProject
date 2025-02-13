@@ -42,8 +42,8 @@ class Usuario:
         return self._endereco
     
     @endereco.setter
-    def endereco(self, nova_endereco):
-        self._endereco
+    def endereco(self, novo_endereco):
+        self._endereco = novo_endereco
             
     
     @property
@@ -51,8 +51,8 @@ class Usuario:
         return self._cep
     
     @cep.setter
-    def cep(self, nova_cep):
-        self._cep
+    def cep(self, novo_cep):
+        self._cep = novo_cep
             
     
     @property
@@ -60,8 +60,8 @@ class Usuario:
         return self._cpf
     
     @cpf.setter
-    def cpf(self, nova_cpf):
-        self._cpf
+    def cpf(self, novo_cpf):
+        self._cpf = novo_cpf
             
     
     @property
@@ -69,11 +69,11 @@ class Usuario:
         return self._admin
     
     @admin.setter
-    def admin(self, nova_admin):
-        self._admin
+    def admin(self, novo_admin):
+        self._admin = novo_admin
             
     def __str__(self):
-        if (admin == true):
-            return f"{id} - {nome} \n\tEmail: {email} \n\tSenha: {senha} \n"
+        if (self.admin == True):
+            return f"{self.id} - {self.nome} \n\tEmail: {self.email} \n\tSenha: {self.senha} \n"
         else:
-              return f"{id} - {nome} \n\tEmail: {email} \n\tSenha: {senha} \n\tEndereço: {endereco} \n\tCEP: {CEP} \n\tCPF: {CPF} \n"
+              return f"{self.id} - {self.nome} \n\tEmail: {self.email} \n\tSenha: {self.senha} \n\tEndereço: {self.endereco} \n\tCEP: {self.CEP} \n\tCPF: {self.CPF} \n"

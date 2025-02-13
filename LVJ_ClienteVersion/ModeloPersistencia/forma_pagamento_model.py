@@ -51,6 +51,6 @@ class FormaPagamento:
         if self._percentual < 0:
             return f"{self._id} - {self._descricao} \n\t Quantidade de parcelas: {self._parcelas}x \n\t Desconto: {self._percentual * -1}%\n\t Dias para Pagar: {self._diaVencimento} dia(s)\n"
         else:
-            return f"{self._id} - {self._descricao} \n\tQuantidade de parcelas: {self._parcelas}x \n\t Juros: {self._percentual}% \n\t Dias para Pagar: {self._diaVencimento} dia{s}\n"
+            return f"{self._id} - {self._descricao} \n\tQuantidade de parcelas: {self._parcelas}x \n\t Juros: {self._percentual}% \n\t Dias para Pagar: {self._diaVencimento} dia(s)\n"
     
     
