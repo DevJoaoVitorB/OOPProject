@@ -15,9 +15,9 @@ class Categoria
     {
         if(desconto == 0)
         {
-            return $"{id} - {descricao} \n";
+            return $"[{id}] - {descricao} \n";
         } else {
-            return $"{id} - {descricao} - {desconto}% de Desconto \n";
+            return $"[{id}] - {descricao} - {desconto}% de Desconto \n";
         }
     }
 }

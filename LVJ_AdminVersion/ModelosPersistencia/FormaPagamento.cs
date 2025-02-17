@@ -18,9 +18,9 @@ class FormaPagamento
     public override string ToString()
     {
         if(percentual < 0){
-            return $"{id} - {descricao} \n\tQuantidade de Parcelas: {parcelas}x \n\tDesconto: {percentual * -1}% \n\tDias para Pagar: {diaVencimento} dia(s) \n";
+            return $"[{id}] - {descricao} \n\tQuantidade de Parcelas: {parcelas}x \n\tDesconto: {percentual * -1}% \n\tDias para Pagar: {diaVencimento} dia(s) \n";
         } else {
-            return $"{id} - {descricao} \n\tQuantidade de Parcelas: {parcelas}x \n\tJuros: {percentual}% \n\tDias para Pagar: {diaVencimento} dia(s) \n";
+            return $"[{id}] - {descricao} \n\tQuantidade de Parcelas: {parcelas}x \n\tJuros: {percentual}% \n\tDias para Pagar: {diaVencimento} dia(s) \n";
         }
     }
 }

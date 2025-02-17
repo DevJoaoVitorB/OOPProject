@@ -1,3 +1,5 @@
+using System.Globalization;
+
 class ProdutoVenda
 {
     public int id { get; set; }
@@ -27,6 +29,6 @@ class ProdutoVenda
 
     public override string ToString()
     {
-        return $"\n\tQuantidade: {quantidade} \n\tPreço do Produto: R${precoProduto:f2} \n\tPreço Total: R${precoTotal:f2} \n";   
+        return $"\n\tQuantidade: {quantidade} \n\tPreço do Produto: {precoProduto.ToString("C", new CultureInfo("pt-BR"))} \n\tPreço Total: {precoTotal.ToString("C", new CultureInfo("pt-BR"))} \n";   
     }
 }
