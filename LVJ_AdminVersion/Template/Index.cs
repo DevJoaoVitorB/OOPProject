@@ -409,7 +409,7 @@ static class ManterCategorias
         double desconto;
         if(double.TryParse(Console.ReadLine(), out desconto))
         {
-            // Operação para Cadastrar Categoria
+            // Operação para Cadastrar a Categoria
             View.InserirCategorias(descricao, desconto);
         } else Console.WriteLine("O valor de Desconto da Categoria deve ser numérico! \n"); 
     }
@@ -469,7 +469,7 @@ static class ManterCategorias
                 } else {Console.WriteLine("O valor informado é inválido para essa Operação! \n"); alterar = -1;}
             } while (alterar != 0);
 
-            // Operação para Atualizar o Cadastro do Admin
+            // Operação para Atualizar o Cadastro da Categoria
             View.AtualizarCategorias(id, descricao, desconto);
         } else Console.WriteLine("O valor informado é inválido para essa Operação! \n");
     }
@@ -573,7 +573,7 @@ static class ManterProdutos
                         } else Console.WriteLine("O valor informado é inválido para essa Operação! \n");
                     } while(valor != 1 && valor != 2);
 
-                    // Operação para Cadastrar Categoria
+                    // Operação para Cadastrar o Produto
                     View.InserirProdutos(descricao, preco, estoque, digital, idCategoria);
                 } else Console.WriteLine("A Quantidade do Produto em Estoque deve ser númerica! \n");
             } else Console.WriteLine("O Preço do Produto deve ser númerico! \n");
@@ -582,12 +582,96 @@ static class ManterProdutos
 
     public static void RemoverProduto()
     {
+        ListarProdutos();
+        Console.Write("Informe o N° do Cadastro do Produto a ser Removido: ");
+        int id;
+        if(int.TryParse(Console.ReadLine(), out id))
+        {
+            Console.Clear();
+            View.VerificarIdProdutos(id);
 
+            // Operação para Remover o Cadastro do Produto
+            View.RemoverProdutos(id);
+        } else Console.WriteLine("O valor informado é inválido para essa Operação! \n");
     }
 
     public static void AtualizarProduto()
     {
+        ListarProdutos();
+        Console.Write("Informe o N° do Cadastro do Produto a ser Atualizado: ");
+        int id;
+        if(int.TryParse(Console.ReadLine(), out id))
+        {
+            Console.Clear();
+            View.VerificarIdProdutos(id);
 
+            int idCategoria = 0;
+            string descricao = "";
+            double preco = 0;
+            int estoque = 0;
+            bool digital = true;
+            int alterar = -1;
+
+            do
+            {
+                Console.WriteLine("\t---- O Que Deseja Alterar no Cadastro? ----");
+                Console.WriteLine("[1]Categoria [2]Descrição [3]Preço [4]Estoque [5]Tipo [0]Sair \n");
+                Console.Write("Opção: ");
+                if(int.TryParse(Console.ReadLine(), out alterar))
+                {
+                    switch (alterar)
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            ManterCategorias.ListarCategorias();
+                            Console.Write("\nInforme o Novo Nº do Cadastro da Categoria do Produto: ");
+                            if(int.TryParse(Console.ReadLine(), out idCategoria))
+                            {
+                                if(!View.ListarCategorias().Exists(x => x.id == id)) Console.WriteLine("O Nº informado não corresponde a nenhuma Categoria \n");
+                            } else Console.WriteLine("O valor informado é inválido para essa Operação! \n");
+                            break;
+                        case 2:
+                            Console.Write("\nInforme a Nova Descrição do Produto: ");
+                            descricao = Console.ReadLine();
+                            break;
+                        case 3:
+                            Console.Write("\nInforme o Novo Preço do Produto: ");
+                            if(!double.TryParse(Console.ReadLine(), out preco)) Console.WriteLine("O Preço do Produto deve ser númerico! \n");
+                            break;
+                        case 4:
+                            Console.Write("\nInforme a Nova Quantidade em Estoque do Produto: ");
+                            if(!int.TryParse(Console.ReadLine(), out estoque)) Console.WriteLine("A Quantidade do Produto em Estoque deve ser númerica! \n");
+                            break;
+                        case 5:
+                            Console.WriteLine("Digite - [1]Produto Digital [2]Produto Físico");
+                            Console.Write("Opção: ");
+                            int valor;
+                            if(int.TryParse(Console.ReadLine(), out valor))
+                            {
+                                switch (valor)
+                                {
+                                    case 1:
+                                        break;
+                                    case 2:
+                                        digital = false;
+                                        break;
+                                    default:
+                                        Console.WriteLine("A Operação informada não existe! Informe os valores 1 ou 2. \n");
+                                        break;
+                                }
+                            } else Console.WriteLine("O valor informado é inválido para essa Operação! \n");
+                            break;
+                        default:
+                            Console.WriteLine("\nA Operação informada não existe! Informe valores de 0 a 5. \n");
+                            break;
+                    }
+                } else {Console.WriteLine("O valor informado é inválido para essa Operação! \n"); alterar = -1;}
+            } while (alterar != 0);
+
+            // Operação para Atualizar o Cadastro do Produto
+            View.AtualizarProdutos(id, descricao, preco, estoque, digital);
+        } else Console.WriteLine("O valor informado é inválido para essa Operação! \n");
     }
 
     public static void ListarProdutos()
