@@ -56,12 +56,12 @@ static class View
             if(senha.Length < 8) erros.Add("\tA Senha deve conter no mínimo 8 caracteres!");
         }
 
-        // Validações de Dados de Clientes
+        // Validações de Dados dos Clientes
         if(!admin)
         {
-            // Verificação de Endereço de Clientes
+            // Verificação de Endereço dos Clientes
             if(string.IsNullOrWhiteSpace(endereco)) erros.Add("\tO campo Endereço deve ser preenchido!");
-            // Verificação de CEP de Clientes
+            // Verificação de CEP dos Clientes
             if(string.IsNullOrWhiteSpace(cep)) erros.Add("\tO campo CEP deve ser preenchido!");
             else
             {
@@ -69,7 +69,7 @@ static class View
                 if(!cep.All(char.IsDigit)) erros.Add("\tO CEP deve conter apenas digítos númericos");
                 if(!string.IsNullOrWhiteSpace(cpfAlterado) && ListarUsuarios().Exists(x => x.cpf == cpf)) erros.Add("\tO CPF informado já está cadastrado!");
             }
-            // Verificação de CPF de Clientes
+            // Verificação de CPF dos Clientes
             if(string.IsNullOrWhiteSpace(cpf)) erros.Add("\tO campo CPF deve ser preenchido!");
             else
             {
@@ -138,6 +138,68 @@ static class View
         // Saber se o Cadastro é de um Cliente ou Administrador
         string tipo = admin ? "Admin" : "Cliente";
         // Verificação do ID informado
-        if(x == null || x.admin != admin) throw new ArgumentException($"O Nº informado não corresponde a Nenhum {tipo}");
+        if(x == null || x.admin != admin) throw new ArgumentException($"O Nº informado não corresponde a nenhum {tipo}");
+    }
+
+    public static void ValidarDadosCategorias(string descricao, double desconto)
+    {
+        // Lista de Erros de Entradas de Dados
+        List<string> erros = new List<string>();
+
+        // Verificação de Descrição das Categorias
+        if(string.IsNullOrWhiteSpace(descricao)) erros.Add("\tO campo Categoria deve ser preenchido!");
+        // Verificação de Desconto das Categorias
+        if(desconto < 0 || desconto > 75) erros.Add("\tO Desconto da Categoria deve ser entre 0% e 75%!");
+
+        if(erros.Count > 0) throw new ArgumentException($"----- Cadastro Não Realizado! Erros Encontrados ----- \n{string.Join(Environment.NewLine, erros)} \n");
+    }
+
+    public static void InserirCategorias(string descricao, double desconto)
+    {
+        // Validação de Dados de Usuário
+        ValidarDadosCategorias(descricao, desconto);
+        // Inserir Cadastro de Usuário
+        Categoria x = new Categoria(0, descricao, desconto);
+        categorias.Inserir(x);
+    }
+
+    public static void RemoverCategorias(int id)
+    {
+        // Categoria cujo Cadastro será removido
+        Categoria x = categorias.ListarId(id);
+        // Remover Cadastro de Categoria
+        categorias.Remover(x);
+    }
+
+    public static void AtualizarCategorias(int id, string descricao, double desconto)
+    {
+        // Categoria cujo Cadastro será atualizado
+        Categoria x = categorias.ListarId(id);
+
+        // Verificações de Atualização de Dados do Cadastro de Categoria
+        if(!string.IsNullOrEmpty(descricao) || desconto != -1)
+        {
+            if(!string.IsNullOrEmpty(descricao)) x.descricao = descricao;
+            if(desconto != -1) x.desconto = desconto;
+        }
+
+        // Validação de Dados de Categoria
+        ValidarDadosCategorias(x.descricao, x.desconto);
+
+        // Atualizar Cadastro de Categoria
+        categorias.Atualizar(x);
+    }
+
+    public static List<Categoria> ListarCategorias()
+    {
+        return categorias.Listar();
+    }
+
+    public static void VerificarIdCategorias(int id)
+    {
+        // Encontrar a Categoria cujo ID de Cadastro foi Informado
+        Usuario x = usuarios.ListarId(id);
+        // Verificação do ID informado
+        if(x == null) throw new ArgumentException($"O Nº informado não corresponde a nenhuma Categoria");
     }
 }

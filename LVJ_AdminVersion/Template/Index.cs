@@ -11,50 +11,48 @@ static class AdminUI
         int sair = 1;
 
         do{
-            try
+            if(logado == false) sair = Login();
+            else 
             {
-                if(logado == false) sair = Login();
-                else 
-                {
-                    View.CriarAdmin();
-                    sair = Menu();
+                View.CriarAdmin();
+                sair = Menu();
 
-                    switch (sair)
-                    {
-                        case 0:
-                            break;
-                        case 1:
-                            ManterUsuarios.MenuUsuarios();
-                            break;
-                        case 2:
-                            ManterCategorias.MenuCategorias();
-                            break;
-                        case 3:
-                            ManterProdutos.MenuProdutos();
-                            break;
-                        case 4:
-                            ManterVendas.MenuVendas();
-                            break;
-                        case 5:
-                            ManterFormasPagamento.MenuFormasPagamento();
-                            break;
-                        case 6:
-                            Relatorios.MenuRelatorios();
-                            break;
-                        case 7:
-                            StatusPedidos.MenuStatusPedidos();
-                            break;
-                        case 8:
-                            logado = false;
-                            break;
-                        default:
-                            Console.WriteLine("A Operação informada não existe! \n");
-                            break;
-                    }
+                switch (sair)
+                {
+                    case -1:
+                        Console.WriteLine("O valor informado é inválido para essa Operação! \n");
+                        break;
+                    case 0:
+                        break;
+                    case 1:
+                        ManterUsuarios.MenuUsuarios();
+                        break;
+                    case 2:
+                        ManterCategorias.MenuCategorias();
+                        break;
+                    case 3:
+                        ManterProdutos.MenuProdutos();
+                        break;
+                    case 4:
+                        ManterVendas.MenuVendas();
+                        break;
+                    case 5:
+                        ManterFormasPagamento.MenuFormasPagamento();
+                        break;
+                    case 6:
+                        Relatorios.MenuRelatorios();
+                        break;
+                    case 7:
+                        StatusPedidos.MenuStatusPedidos();
+                        break;
+                    case 8:
+                        logado = false;
+                        break;
+                    default:
+                        Console.WriteLine("A Operação informada não existe! Informe valores de 0 a 8. \n");
+                        break;
                 }
-            } 
-            catch (FormatException) {Console.WriteLine("Valor informado inválido para essa Operação! \n");}
-            catch (ArgumentException ex) {Console.WriteLine(ex.Message);}
+            }
         } while(sair != 0);
     }
 
@@ -64,27 +62,29 @@ static class AdminUI
         Console.WriteLine("\n\t----- LOGIN -----");
         Console.WriteLine("\n\t[1]Entrar [0]Sair \n");
         Console.Write("Opção: ");
-        int valor = int.Parse(Console.ReadLine());
-        Console.Clear();
-
-        switch (valor)
+        int valor;
+        if(int.TryParse(Console.ReadLine(), out valor))
         {
-            case 0:
-                return 0;
-            case 1:
-                Console.Write("E-mail: ");
-                string email = Console.ReadLine();
-                Console.Write("Senha: ");
-                string senha = Console.ReadLine();
-                Console.Clear();
-                logado = View.ValidarLogin(email, senha, out idLogado);
-                if(logado) Console.WriteLine("Login feito com sucesso! \n");
-                else Console.WriteLine("Login não efetuado! E-mail ou Senha incorretos! \n");
-                return 1;
-            default:
-                Console.WriteLine("A Operação informada não existe! \n");
-                return valor;
-        }
+            Console.Clear();
+            switch (valor)
+            {
+                case 0:
+                    return 0;
+                case 1:
+                    Console.Write("E-mail: ");
+                    string email = Console.ReadLine();
+                    Console.Write("Senha: ");
+                    string senha = Console.ReadLine();
+                    Console.Clear();
+                    logado = View.ValidarLogin(email, senha, out idLogado);
+                    if(logado) Console.WriteLine("Login feito com sucesso! \n");
+                    else Console.WriteLine("Login não efetuado! E-mail ou Senha incorretos! \n");
+                    return 1;
+                default:
+                    Console.WriteLine("A Operação informada não existe! Informe os valores 0 ou 1. \n");
+                    return valor;
+            }
+        } else {Console.WriteLine("O valor informado é inválido para essa Operação! \n"); return -1;}
     }
 
     public static int Menu()
@@ -96,10 +96,13 @@ static class AdminUI
         Console.WriteLine("[3]Gerenciamento de Produtos   [7]Gerenciamento de Status de Pedidos");
         Console.WriteLine("[4]Gerenciamento de Vendas     [8]Logout\n");
         Console.Write("Opção: ");
-        int valor = int.Parse(Console.ReadLine());
-        Console.Clear();
-        if(valor == 0) return 9;
-        return valor;
+        int valor;
+        if(int.TryParse(Console.ReadLine(), out valor))
+        {
+            Console.Clear();
+            if(valor == 0) return -1;
+            return valor;
+        } else return -1;
     }
 }
 
@@ -107,7 +110,7 @@ static class ManterUsuarios
 {
     public static void MenuUsuarios()
     {
-        int valor = 1;
+        int valor = -1;
         do{
             Console.WriteLine("\n\t------- Gerenciamento de Usuários ------- \n");
             Console.WriteLine("[1]Realizar Cadastro de Cliente  [5]Realizar Cadastro de Admin");
@@ -118,42 +121,43 @@ static class ManterUsuarios
             Console.Write("Opção: ");
             try
             {
-                valor = int.Parse(Console.ReadLine());
-                Console.Clear();
-                switch (valor)
+                if(int.TryParse(Console.ReadLine(), out valor))
                 {
-                    case 0:
-                        break;
-                    case 1:
-                        InserirCliente();
-                        break;
-                    case 2:
-                        RemoverCliente();
-                        break;
-                    case 3:
-                        AtualizarCliente();
-                        break;
-                    case 4:
-                        ListarClientes();
-                        break;
-                    case 5:
-                        InserirAdmin();
-                        break;
-                    case 6:
-                        RemoverAdmin();
-                        break;
-                    case 7:
-                        AtualizarAdmin();
-                        break;
-                    case 8:
-                        ListarAdmins();
-                        break;
-                    default:
-                        Console.WriteLine("A Operação informada não existe! \n");
-                        break;
-                }
+                    Console.Clear();
+                    switch (valor)
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            InserirCliente();
+                            break;
+                        case 2:
+                            RemoverCliente();
+                            break;
+                        case 3:
+                            AtualizarCliente();
+                            break;
+                        case 4:
+                            ListarClientes();
+                            break;
+                        case 5:
+                            InserirAdmin();
+                            break;
+                        case 6:
+                            RemoverAdmin();
+                            break;
+                        case 7:
+                            AtualizarAdmin();
+                            break;
+                        case 8:
+                            ListarAdmins();
+                            break;
+                        default:
+                            Console.WriteLine("A Operação informada não existe! Informe valores de 0 a 8. \n");
+                            break;
+                    } 
+                } else {Console.WriteLine("O valor informado é inválido para essa Operação! \n"); valor = -1;}
             } 
-            catch (FormatException) {Console.WriteLine("Valor informado é inválido para essa Operação! \n");}
             catch (ArgumentException ex) {Console.WriteLine(ex.Message);}
             catch (InvalidOperationException ex) {Console.WriteLine(ex.Message);}
         } while(valor != 0);
@@ -162,17 +166,17 @@ static class ManterUsuarios
     public static void InserirCliente()
     {
         Console.WriteLine("\n --- Informações de Cadastro --- \n");
-        Console.Write("Informe o Nome: ");
+        Console.Write("Informe o Nome do Cliente: ");
         string nome = Console.ReadLine();
-        Console.Write("Informe o E-mail: ");
+        Console.Write("Informe o E-mail do Cliente: ");
         string email = Console.ReadLine();
-        Console.Write("Informe a Senha (A Senha deve conter 8 Caracteres): ");
+        Console.Write("Informe a Senha do Cliente (A Senha deve conter 8 Caracteres): ");
         string senha = Console.ReadLine();
         Console.Write("Informe o Endereço: ");
         string endereco = Console.ReadLine();
-        Console.Write("Informe o CEP (XXXXXXXX): ");
+        Console.Write("Informe o CEP do Cliente (XXXXXXXX): ");
         string cep = Console.ReadLine();
-        Console.Write("Informe o CPF (XXXXXXXXXXX): ");
+        Console.Write("Informe o CPF do Cliente (XXXXXXXXXXX): ");
         string cpf = Console.ReadLine();
 
         // Operação para Cadastrar o Cliente
@@ -183,72 +187,75 @@ static class ManterUsuarios
     {
         ListarClientes();
         Console.Write("Informe o N° do Cadastro do Cliente a ser Removido: ");
-        int id = int.Parse(Console.ReadLine());
-        Console.Clear();
-        View.VerificarIdUsuarios(id, false);
+        int id;
+        if(int.TryParse(Console.ReadLine(), out id))
+        {
+            Console.Clear();
+            View.VerificarIdUsuarios(id, false);
 
-        // Operação para Remover o Cadastro do Cliente
-        View.RemoverUsuarios(id);
+            // Operação para Remover o Cadastro do Cliente
+            View.RemoverUsuarios(id);
+        } else Console.WriteLine("O valor informado é inválido para essa Operação! \n");
     }
 
     public static void AtualizarCliente()
     {
         ListarClientes();
         Console.Write("Informe o N° do Cadastro do Cliente a ser Atualizado: ");
-        int id = int.Parse(Console.ReadLine());
-        Console.Clear();
-        View.VerificarIdUsuarios(id, false);
-
-        string nome, email, senha, endereco, cep, cpf;
-        nome = email = senha = endereco = cep = cpf = "";
-        int alterar = 1;
-
-        do
+        int id;
+        if(int.TryParse(Console.ReadLine(), out id))
         {
-            try
+            Console.Clear();
+            View.VerificarIdUsuarios(id, false);
+
+            string nome, email, senha, endereco, cep, cpf;
+            nome = email = senha = endereco = cep = cpf = "";
+            int alterar = -1;
+
+            do
             {
                 Console.WriteLine("\t----- O Que Deseja Alterar no Cadastro? -----");
                 Console.WriteLine("[1]Nome [2]E-mail [3]Senha [4]Endereço [5]CEP [6]CPF [0]Sair \n");
                 Console.Write("Opção: ");
-                alterar = int.Parse(Console.ReadLine());
-                
-                switch (alterar)
-                {
-                    case 0:
-                        break;
-                    case 1:
-                        Console.Write("\nInforme o Novo Nome: ");
-                        nome = Console.ReadLine();
-                        break;
-                    case 2:
-                        Console.Write("\nInforme o Novo E-Mail: ");
-                        email = Console.ReadLine();
-                        break;
-                    case 3:
-                        Console.Write("\nInforme a Nova Senha (A Nova Senha deve conter 8 Caracteres): ");
-                        senha = Console.ReadLine();
-                        break;
-                    case 4:
-                        Console.Write("\nInforme o Novo Endereço: ");
-                        endereco = Console.ReadLine();
-                        break;
-                    case 5:
-                        Console.Write("\nInforme o Novo CEP (XXXXXXXX): ");
-                        cep = Console.ReadLine();
-                        break;
-                    case 6:
-                        Console.Write("\nInforme o Novo CPF (XXXXXXXXXXX): ");
-                        cpf = Console.ReadLine();
-                        break;
-                    default:
-                        Console.WriteLine("\nA Operação informada não existe! \n");
-                        break;
-                }
-            } catch (FormatException) {Console.WriteLine("\nValor informado é inválido para essa Operação! \n");}
-        } while (alterar != 0);
+                if(int.TryParse(Console.ReadLine(), out alterar)){
+                    switch (alterar)
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            Console.Write("\nInforme o Novo Nome do Cliente: ");
+                            nome = Console.ReadLine();
+                            break;
+                        case 2:
+                            Console.Write("\nInforme o Novo E-Mail do Cliente: ");
+                            email = Console.ReadLine();
+                            break;
+                        case 3:
+                            Console.Write("\nInforme a Nova Senha do Cliente (A Nova Senha deve conter 8 Caracteres): ");
+                            senha = Console.ReadLine();
+                            break;
+                        case 4:
+                            Console.Write("\nInforme o Novo Endereço do Cliente: ");
+                            endereco = Console.ReadLine();
+                            break;
+                        case 5:
+                            Console.Write("\nInforme o Novo CEP do Cliente (XXXXXXXX): ");
+                            cep = Console.ReadLine();
+                            break;
+                        case 6:
+                            Console.Write("\nInforme o Novo CPF do Cliente (XXXXXXXXXXX): ");
+                            cpf = Console.ReadLine();
+                            break;
+                        default:
+                            Console.WriteLine("\nA Operação informada não existe! Informe valores de 0 a 6. \n");
+                            break;
+                    }
+                } else {Console.WriteLine("O valor informado é inválido para essa Operação! \n"); alterar = -1;}
+            } while (alterar != 0);
 
-        // Operação para Atualizar o Cadastro do Cliente
-        View.AtualizarUsuarios(id, nome, email, senha, endereco, cep, cpf, false);
+            // Operação para Atualizar o Cadastro do Cliente
+            View.AtualizarUsuarios(id, nome, email, senha, endereco, cep, cpf, false);
+        } else Console.WriteLine("O valor informado é inválido para essa Operação! \n");
     }
 
     public static void ListarClientes()
@@ -264,11 +271,11 @@ static class ManterUsuarios
     public static void InserirAdmin()
     {
         Console.WriteLine("\n --- Informações de Cadastro --- \n");
-        Console.Write("Informe o Nome: ");
+        Console.Write("Informe o Nome do Admin: ");
         string nome = Console.ReadLine();
-        Console.Write("Informe o E-mail: ");
+        Console.Write("Informe o E-mail do Admin: ");
         string email = Console.ReadLine();
-        Console.Write("Informe a Senha (A Senha deve conter 8 Caracteres): ");
+        Console.Write("Informe a Senha do Admin (A Senha deve conter 8 Caracteres): ");
         string senha = Console.ReadLine();
 
         // Operação para Cadastrar o Admin
@@ -279,60 +286,64 @@ static class ManterUsuarios
     {
         ListarAdmins();
         Console.Write("Informe o N° do Cadastro do Admin a ser Removido: ");
-        int id = int.Parse(Console.ReadLine());
-        Console.Clear();
-        View.VerificarIdUsuarios(id, true);
+        int id;
+        if(int.TryParse(Console.ReadLine(), out id))
+        {
+            Console.Clear();
+            View.VerificarIdUsuarios(id, true);
 
-        // Operação para Remover o Cadastro do Admin
-        View.RemoverUsuarios(id);
+            // Operação para Remover o Cadastro do Cliente
+            View.RemoverUsuarios(id);
+        } else Console.WriteLine("O valor informado é inválido para essa Operação! \n");
     }
 
     public static void AtualizarAdmin()
     {
         ListarAdmins();
         Console.Write("Informe o N° do Cadastro do Admin a ser Atualizado: ");
-        int id = int.Parse(Console.ReadLine());
-        Console.Clear();
-        View.VerificarIdUsuarios(id, true);
-
-        string nome, email, senha;
-        nome = email = senha = "";
-        int alterar = 1;
-
-        do
+        int id;
+        if(int.TryParse(Console.ReadLine(), out id))
         {
-            try
+            Console.Clear();
+            View.VerificarIdUsuarios(id, true);
+
+            string nome, email, senha;
+            nome = email = senha = "";
+            int alterar = -1;
+
+            do
             {
                 Console.WriteLine("\t----- O Que Deseja Alterar no Cadastro? -----");
                 Console.WriteLine("\t     [1]Nome [2]E-mail [3]Senha [0]Sair \n");
                 Console.Write("Opção: ");
-                alterar = int.Parse(Console.ReadLine());
-                
-                switch (alterar)
+                if(int.TryParse(Console.ReadLine(), out alterar))
                 {
-                    case 0:
-                        break;
-                    case 1:
-                        Console.Write("\nInforme o Novo Nome: ");
-                        nome = Console.ReadLine();
-                        break;
-                    case 2:
-                        Console.Write("\nInforme o Novo E-Mail: ");
-                        email = Console.ReadLine();
-                        break;
-                    case 3:
-                        Console.Write("\nInforme a Nova Senha (A Nova Senha deve conter 8 Caracteres): ");
-                        senha = Console.ReadLine();
-                        break;
-                    default:
-                        Console.WriteLine("\nA Operação informada não existe! \n");
-                        break;
-                }
-            } catch (FormatException) {Console.WriteLine("\nValor informado é inválido para essa Operação! \n");}
-        } while (alterar != 0);
+                    switch (alterar)
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            Console.Write("\nInforme o Novo Nome do Admin: ");
+                            nome = Console.ReadLine();
+                            break;
+                        case 2:
+                            Console.Write("\nInforme o Novo E-Mail do Admin: ");
+                            email = Console.ReadLine();
+                            break;
+                        case 3:
+                            Console.Write("\nInforme a Nova Senha do Admin (A Nova Senha deve conter 8 Caracteres): ");
+                            senha = Console.ReadLine();
+                            break;
+                        default:
+                            Console.WriteLine("\nA Operação informada não existe! Informe valores de 0 a 3. \n");
+                            break;
+                    }
+                } else {Console.WriteLine("O valor informado é inválido para essa Operação! \n"); alterar = -1;}
+            } while (alterar != 0);
 
-        // Operação para Atualizar o Cadastro do Admin
-        View.AtualizarUsuarios(id, nome, email, senha, "", "", "", true);
+            // Operação para Atualizar o Cadastro do Admin
+            View.AtualizarUsuarios(id, nome, email, senha, "", "", "", true);
+        } else Console.WriteLine("O valor informado é inválido para essa Operação! \n");
     }
 
     public static void ListarAdmins()
@@ -350,7 +361,7 @@ static class ManterCategorias
 {
     public static void MenuCategorias()
     {
-        int value = 1;
+        int valor = -1;
         do{
             Console.WriteLine("\n\t------- Gerenciamento de Categorias ------- \n");
             Console.WriteLine("[1]Realizar Cadastro de Categoria  [3]Atualizar Cadastro de Categoria");
@@ -359,52 +370,117 @@ static class ManterCategorias
             Console.Write("Opção: ");
             try
             {
-                value = int.Parse(Console.ReadLine());
-                Console.Clear();
-                switch (value)
+                if(int.TryParse(Console.ReadLine(), out valor))
                 {
-                    case 0:
-                        break;
-                    case 1:
-                        InserirCategoria();
-                        break;
-                    case 2:
-                        RemoverCategoria();
-                        break;
-                    case 3:
-                        AtualizarCategoria();
-                        break;
-                    case 4:
-                        ListarCategorias();
-                        break;
-                    default:
-                        Console.WriteLine("A Operação informada não existe! \n");
-                        break;
-                }
-            } catch (Exception) {
-                Console.WriteLine("Valor informado inválido para essa Operação! \n");
-            }
-        } while(value != 0);
+                    Console.Clear();
+                    switch (valor)
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            InserirCategoria();
+                            break;
+                        case 2:
+                            RemoverCategoria();
+                            break;
+                        case 3:
+                            AtualizarCategoria();
+                            break;
+                        case 4:
+                            ListarCategorias();
+                            break;
+                        default:
+                            Console.WriteLine("A Operação informada não existe! Informe valores de 0 a 4. \n");
+                            break;
+                    }
+                } else {Console.WriteLine("O valor informado é inválido para essa Operação! \n"); valor = -1;}
+            } 
+            catch (ArgumentException ex) {Console.WriteLine(ex.Message);}
+            catch (InvalidOperationException ex) {Console.WriteLine(ex.Message);}
+        } while(valor != 0);
     }
 
     public static void InserirCategoria()
     {
-
+        Console.WriteLine("\n --- Informações de Cadastro --- \n");
+        Console.Write("Informe a Descrição da Categoria: ");
+        string descricao = Console.ReadLine();
+        Console.Write("Informe o Desconto da Categoria (%): ");
+        double desconto;
+        if(double.TryParse(Console.ReadLine(), out desconto))
+        {
+            // Operação para Cadastrar Categoria
+            View.InserirCategorias(descricao, desconto);
+        } else Console.WriteLine("O valor de Desconto da Categoria deve ser numérico! \n"); 
     }
 
     public static void RemoverCategoria()
     {
+        ListarCategorias();
+        Console.Write("Informe o N° do Cadastro da Categoria a ser Removida: ");
+        int id;
+        if(int.TryParse(Console.ReadLine(), out id))
+        {
+            Console.Clear();
+            View.VerificarIdCategorias(id);
 
+            // Operação para Remover o Cadastro da Categoria
+            View.RemoverCategorias(id);
+        } else Console.WriteLine("O valor informado é inválido para essa Operação! \n");
     }
 
     public static void AtualizarCategoria()
     {
+        ListarCategorias();
+        Console.Write("Informe o N° do Cadastro da Categoria a ser Atualizada: ");
+        int id;
+        if(int.TryParse(Console.ReadLine(), out id))
+        {
+            Console.Clear();
+            View.VerificarIdCategorias(id);
 
+            string descricao = ""; 
+            double desconto = -1;
+            int alterar = -1;
+
+            do
+            {
+                Console.WriteLine("\t----- O Que Deseja Alterar no Cadastro? -----");
+                Console.WriteLine("\t      [1]Descrição [2]Desconto [0]Sair \n");
+                Console.Write("Opção: ");
+                if(int.TryParse(Console.ReadLine(), out alterar))
+                {
+                    switch (alterar)
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            Console.Write("\nInforme a Nova Descrição da Categoria: ");
+                            descricao = Console.ReadLine();
+                            break;
+                        case 2:
+                            Console.Write("\nInforme o Novo Desconto da Categoria (%): ");
+                            if(!double.TryParse(Console.ReadLine(), out desconto)) {Console.WriteLine("O valor de Desconto da Categoria deve ser numérico! \n"); desconto = -1;} 
+                            break;
+                        default:
+                            Console.WriteLine("\nA Operação informada não existe! Informe valores de 0 a 2. \n");
+                            break;
+                    }
+                } else {Console.WriteLine("O valor informado é inválido para essa Operação! \n"); alterar = -1;}
+            } while (alterar != 0);
+
+            // Operação para Atualizar o Cadastro do Admin
+            View.AtualizarCategorias(id, descricao, desconto);
+        } else Console.WriteLine("O valor informado é inválido para essa Operação! \n");
     }
 
     public static void ListarCategorias()
     {
-
+        if(View.ListarCategorias().Any())
+        {
+            Console.WriteLine("\n----- Cadastro de Categorias ----- \n"); 
+            foreach(Categoria x in View.ListarCategorias()) Console.WriteLine(x);
+        } else throw new InvalidOperationException("Não há nenhuma Categoria cadastrada! \n");
     }
 }
 
@@ -412,7 +488,7 @@ static class ManterProdutos
 {
     public static void MenuProdutos()
     {
-        int value = 1;
+        int valor = -1;
         do{
             Console.WriteLine("\n\t------- Gerenciamento de Produtos ------- \n");
             Console.WriteLine("[1]Realizar Cadastro de Produto  [4]Listar Cadastros de Produtos");
@@ -422,40 +498,86 @@ static class ManterProdutos
             Console.Write("Opção: ");
             try
             {
-                value = int.Parse(Console.ReadLine());
-                Console.Clear();
-                switch (value)
+                if(int.TryParse(Console.ReadLine(), out valor))
                 {
-                    case 0:
-                        break;
-                    case 1:
-                        InserirProduto();
-                        break;
-                    case 2:
-                        RemoverProduto();
-                        break;
-                    case 3:
-                        AtualizarProduto();
-                        break;
-                    case 4:
-                        ListarProdutos();
-                        break;
-                    case 5:
-                        ReajustePreco();
-                        break;
-                    default:
-                        Console.WriteLine("A Operação informada não existe! \n");
-                        break;
-                }
-            } catch (Exception) {
-                Console.WriteLine("Valor informado inválido para essa Operação! \n");
+                    Console.Clear();
+                    switch (valor)
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            InserirProduto();
+                            break;
+                        case 2:
+                            RemoverProduto();
+                            break;
+                        case 3:
+                            AtualizarProduto();
+                            break;
+                        case 4:
+                            ListarProdutos();
+                            break;
+                        case 5:
+                            ReajustePreco();
+                            break;
+                        default:
+                            Console.WriteLine("A Operação informada não existe! Informe valores de 0 a 5. \n");
+                            break;
+                    }
+                } else {Console.WriteLine("O valor informado é inválido para essa Operação! \n"); valor = -1;}
             }
-        } while(value != 0);
+            catch (ArgumentException ex) {Console.WriteLine(ex.Message);}
+            catch (InvalidOperationException ex) {Console.WriteLine(ex.Message);}
+        } while(valor != 0);
     }
 
     public static void InserirProduto()
     {
+        ManterCategorias.ListarCategorias();
+        Console.Write("Informe o Nº do Cadastro da Categoria deste Produto: ");
+        int idCategoria;
+        if(int.TryParse(Console.ReadLine(), out idCategoria))
+        {
+            Console.Clear();
+            View.VerificarIdCategorias(idCategoria);
 
+            Console.WriteLine("\n --- Informações de Cadastro --- \n");
+            Console.Write("Informe a Descrição do Produto: ");
+            string descricao = Console.ReadLine();
+            Console.Write("Informe o Preço do Produto: R$ ");
+            double preco;
+            if(double.TryParse(Console.ReadLine(), out preco))
+            {
+                Console.Write("Informe a Quantidade em Estoque do Produto: ");
+                int estoque;
+                if(int.TryParse(Console.ReadLine(), out estoque))
+                {
+                    int valor = -1;
+                    bool digital = true;
+                    do{
+                        Console.WriteLine("Digite - [1]Produto Digital [2]Produto Físico");
+                        Console.Write("Opção: ");
+                        if(int.TryParse(Console.ReadLine(), out valor))
+                        {
+                            switch (valor)
+                            {
+                                case 1:
+                                    break;
+                                case 2:
+                                    digital = false;
+                                    break;
+                                default:
+                                    Console.WriteLine("A Operação informada não existe! Informe os valores 1 ou 2. \n");
+                                    break;
+                            }
+                        } else Console.WriteLine("O valor informado é inválido para essa Operação! \n");
+                    } while(valor != 1 && valor != 2);
+
+                    // Operação para Cadastrar Categoria
+                    View.InserirProdutos(descricao, preco, estoque, digital, idCategoria);
+                } else Console.WriteLine("A Quantidade do Produto em Estoque deve ser númerica! \n");
+            } else Console.WriteLine("O Preço do Produto deve ser númerico! \n");
+        } else Console.WriteLine("O valor informado não corresponde a um ID de Categoria! Informe um valor correspondente a uma das Categorias listadas. \n");
     }
 
     public static void RemoverProduto()
