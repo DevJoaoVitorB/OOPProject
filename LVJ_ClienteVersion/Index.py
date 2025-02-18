@@ -1,10 +1,10 @@
-from usuario_model import Usuario
-from categoria_model import Categoria
-from persistencia_model import *
-from produto_model import Produto
-from produto_venda_model import ProdutoVenda
-from venda_model import Venda
-from forma_pagamento_model import FormaPagamento
+from Models.usuario_model import Usuario
+from Models.categoria_model import Categoria
+from Models.persistencia_model import *
+from Models.produto_model import Produto
+from Models.produto_venda_model import ProdutoVenda
+from Models.venda_model import Venda
+from Models.forma_pagamento_model import FormaPagamento
 
 class UIAdmin:
     @staticmethod
