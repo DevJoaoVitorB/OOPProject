@@ -27,7 +27,8 @@
 | Nome | Descrição | Responsabilidades |
 |:---  |:--- |:--- |
 | *Administrador* | 📌Realiza as atividades relacionadas a manuteção do sistema | 📌Controle de logística: manter categorias, estoques de produtos, finaceiro e cadastro de clientes sempre atualizados |
-| *Cliente* | 📌Realiza as atividades relacionadas a compra dos produtos oferecidos | 📌Realiza o próprio cadastro no sistema; Adicionar os produtos de sua preferência ao carrinho e realizar a compra |
+| *Visitante* | 📌Realizar as atividades relacionadas a login e cadastro | 📌Criar conta e entra no sistema |
+| *Cliente* | 📌Realiza as atividades relacionadas a compra dos produtos oferecidos | 📌Adicionar os produtos de sua preferência ao carrinho e realizar a compra |
 
 ### 4. Descrição do Ambiente dos Usuários
 
@@ -43,18 +44,20 @@ Em resumo, o projeto busca alcançar o público apreciador de jogos virtuais que
 
 | Código | Nome | Descrição |
 |:---  |:--- |:--- |
-| RF01 | Abrir Conta | 📌Cliente deve realizar o seu cadastro no sistema |
+| RF01 | Abrir Conta | 📌Visitante deve realizar o seu cadastro no sistema |
+| RF02 | Visualizar Catálogo de Produtos Antes do Login e/ou Cadastro | 📌Visitante pode visualizar o catálogo de produtos antes de realizar o login e/ou cadastro no sistema |
 | RF02 | Manter Cadastro dos Administradores | 📌Administrador cadastrado deve realizar o cadastro dos Administradores no sistema |
-| RF03 | Entrar no Sistema | 📌Cliente e Administrador devem logar no sistema para acessar as funcionalidades |
+| RF03 | Entrar no Sistema | 📌Administrador e Visitante devem logar no sistema para acessar as funcionalidades de Gerenciamento e de Cliente, respectivamente |
 | RF04 | Manter Cadastro de Clientes | 📌Métodos de para inserir, remove, listar e atualizar os cadastros de clientes |
 | RF05 | Manter Cadastro de Categorias | 📌Métodos de para inserir, remove, listar e atualizar os cadastros das categorias |
 | RF06 | Manter Cadastro de Produtos | 📌Métodos de para inserir, remove, listar e atualizar os cadastros dos produtos  |
 | RF07 | Visualizar Vendas dos Clientes | 📌Administrador pode visualizar as vendas feitas pelos clientes. |
-| RF08 | Obter Relátorio Parcial de Vendas | 📌Administrador receber o relatório de todas as vendas de cada cliente cadastrado na loja |
-| RF09 | Obter Relátorio Total de Vendas | 📌Administrador receber o relatório de todas as vendas dos clientes cadastrados na loja |
-| RF10 | Informar Entrega de Produtos | 📌Administrador deve informa entrega dos produtos físicos |
-| RF11 | Manter Carrinho | 📌Cliente possuir métodos de inserir, remover e listar produtos do carrinho |
-| RF12 | Visualizar Vendas | 📌Cliente visualizar as suas vendas |
-| RF13 | Visualizar Informações de Entrega | 📌Cliente visualizar o status de entrega de seus pedidos físicos |
-| RF14 | Resgatar Produto Digital | 📌Cliente deve resgatar o seus produtos digitais por meio do código de verificação gerado na compra |
-| RF15 | Sistema de Pagamento | 📌Cliente pode escolher a forma de pagamento. Em produtos digitais irá ser gerado um código de resgate e para produtos físicos, pagamento de uma taxa de entrega fixa |
+| RF08 | Remover Vendas e Atualizar Produtos das Vendas | 📌Administrador pode tratar os erros de compras feitos pelos Clientes removendo e atualizando as informações de venda |
+| RF09 | Obter Relátorio Parcial de Vendas | 📌Administrador receber o relatório de todas as vendas de cada cliente cadastrado na loja |
+| RF10 | Obter Relátorio Total de Vendas | 📌Administrador receber o relatório de todas as vendas dos clientes cadastrados na loja |
+| RF11 | Informar Entrega de Produtos | 📌Administrador deve informa entrega dos produtos físicos |
+| RF12 | Manter Carrinho | 📌Cliente possuir métodos de inserir, remover e listar produtos do carrinho |
+| RF13 | Visualizar Vendas | 📌Cliente pode visualizar as suas vendas |
+| RF14 | Visualizar Informações de Entrega | 📌Cliente pode visualizar o status de entrega de seus pedidos físicos |
+| RF15 | Resgatar Produto Digital | 📌Cliente deve resgatar o seus produtos digitais por meio do código de verificação gerado na compra |
+| RF16 | Sistema de Pagamento | 📌Cliente pode escolher a forma de pagamento. Em produtos digitais irá ser gerado um código de resgate e para produtos físicos, o pagamento de uma taxa de entrega fixa |
