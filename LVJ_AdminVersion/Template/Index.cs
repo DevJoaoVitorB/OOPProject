@@ -264,7 +264,7 @@ static class ManterUsuarios
         if(clientes.Any())
         {
             Console.WriteLine("\n----- Cadastro de Clientes ----- \n"); 
-            foreach(Usuario x in clientes) Console.WriteLine(x);
+            clientes.ForEach(x => Console.WriteLine(x));
         } else throw new InvalidOperationException("Não há nenhum Cliente cadastrado! \n");
     }
 
@@ -348,11 +348,11 @@ static class ManterUsuarios
 
     public static void ListarAdmins()
     {
-        List<Usuario> clientes = View.ListarUsuarios().Where(x => x.admin).ToList();
-        if(clientes.Any())
+        List<Usuario> admins = View.ListarUsuarios().Where(x => x.admin).ToList();
+        if(admins.Any())
         {
             Console.WriteLine("\n----- Cadastro de Administradores ----- \n"); 
-            foreach(Usuario x in clientes) Console.WriteLine(x);
+            admins.ForEach(x => Console.WriteLine(x));
         } else throw new InvalidOperationException("Não há nenhum Administrador cadastrado! \n");
     }
 }
@@ -479,7 +479,7 @@ static class ManterCategorias
         if(View.ListarCategorias().Any())
         {
             Console.WriteLine("\n----- Cadastro de Categorias ----- \n"); 
-            foreach(Categoria x in View.ListarCategorias()) Console.WriteLine(x);
+            View.ListarCategorias().ForEach(x => Console.WriteLine(x));
         } else throw new InvalidOperationException("Não há nenhuma Categoria cadastrada! \n");
     }
 }
@@ -492,7 +492,7 @@ static class ManterProdutos
         do{
             Console.WriteLine("\n\t------- Gerenciamento de Produtos ------- \n");
             Console.WriteLine("[1]Realizar Cadastro de Produto  [4]Listar Cadastros de Produtos");
-            Console.WriteLine("[2]Remover Cadastro de Produto   [5]Reajuste de Preço de Produto");
+            Console.WriteLine("[2]Remover Cadastro de Produto   [5]Reajuste de Preço de Produtos");
             Console.WriteLine("[3]Atualizar Cadastro de Produto");
             Console.WriteLine("[0]Sair \n");
             Console.Write("Opção: ");
@@ -555,7 +555,7 @@ static class ManterProdutos
                     int valor = -1;
                     bool digital = true;
                     do{
-                        Console.WriteLine("Digite - [1]Produto Digital [2]Produto Físico");
+                        Console.WriteLine("Digite - [1]Produto Digital [2]Produto Físico \n");
                         Console.Write("Opção: ");
                         if(int.TryParse(Console.ReadLine(), out valor))
                         {
@@ -605,11 +605,12 @@ static class ManterProdutos
             Console.Clear();
             View.VerificarIdProdutos(id);
 
-            int idCategoria = 0;
+            int idCategoria = -1;
             string descricao = "";
-            double preco = 0;
-            int estoque = 0;
+            double preco = -1;
+            int estoque = -1;
             bool digital = true;
+            int chave = -1;
             int alterar = -1;
 
             do
@@ -628,7 +629,7 @@ static class ManterProdutos
                             Console.Write("\nInforme o Novo Nº do Cadastro da Categoria do Produto: ");
                             if(int.TryParse(Console.ReadLine(), out idCategoria))
                             {
-                                if(!View.ListarCategorias().Exists(x => x.id == id)) Console.WriteLine("O Nº informado não corresponde a nenhuma Categoria \n");
+                                if(View.ObterCategorias(idCategoria) != null) Console.WriteLine("O Nº informado não corresponde a nenhuma Categoria \n");
                             } else Console.WriteLine("O valor informado é inválido para essa Operação! \n");
                             break;
                         case 2:
@@ -636,15 +637,15 @@ static class ManterProdutos
                             descricao = Console.ReadLine();
                             break;
                         case 3:
-                            Console.Write("\nInforme o Novo Preço do Produto: ");
-                            if(!double.TryParse(Console.ReadLine(), out preco)) Console.WriteLine("O Preço do Produto deve ser númerico! \n");
+                            Console.Write("\nInforme o Novo Preço do Produto: R$ ");
+                            if(!double.TryParse(Console.ReadLine(), out preco)) {Console.WriteLine("O Preço do Produto deve ser númerico! \n"); preco = -1;}
                             break;
                         case 4:
                             Console.Write("\nInforme a Nova Quantidade em Estoque do Produto: ");
-                            if(!int.TryParse(Console.ReadLine(), out estoque)) Console.WriteLine("A Quantidade do Produto em Estoque deve ser númerica! \n");
+                            if(!int.TryParse(Console.ReadLine(), out estoque)) {Console.WriteLine("A Quantidade do Produto em Estoque deve ser númerica! \n"); estoque = -1;}
                             break;
                         case 5:
-                            Console.WriteLine("Digite - [1]Produto Digital [2]Produto Físico");
+                            Console.WriteLine("Digite - [1]Produto Digital [2]Produto Físico \n");
                             Console.Write("Opção: ");
                             int valor;
                             if(int.TryParse(Console.ReadLine(), out valor))
@@ -652,8 +653,10 @@ static class ManterProdutos
                                 switch (valor)
                                 {
                                     case 1:
+                                        chave = 1;
                                         break;
                                     case 2:
+                                        chave = 1;
                                         digital = false;
                                         break;
                                     default:
@@ -670,18 +673,71 @@ static class ManterProdutos
             } while (alterar != 0);
 
             // Operação para Atualizar o Cadastro do Produto
-            View.AtualizarProdutos(id, descricao, preco, estoque, digital);
+            View.AtualizarProdutos(id, descricao, preco, estoque, digital, idCategoria, chave);
         } else Console.WriteLine("O valor informado é inválido para essa Operação! \n");
     }
 
     public static void ListarProdutos()
     {
-        
+        if(View.ListarProdutos().Any())
+        {
+            Console.WriteLine("\n----- Cadastro de Produtos ----- \n");
+            View.ListarProdutos().ForEach(x => Console.WriteLine($"{x}\t{View.ObterCategorias(x.idCategoria)}"));
+        } else throw new InvalidOperationException("Não há nenhum Produto cadastrado! \n");
     }
 
     public static void ReajustePreco()
     {
-
+        if(View.ListarProdutos().Any())
+        {
+            Console.Write("Informe o Valor de Reajuste de Preço dos Produtos (%): ");
+            double percentual;
+            if(double.TryParse(Console.ReadLine(), out percentual))
+            {
+                if(percentual > -50 && percentual < 50)
+                {
+                    Console.Clear();
+                    Console.WriteLine(percentual);
+                    double fator = percentual < 0 ? 1 - (percentual * -1 / 100) : 1 + (percentual / 100);
+                    Console.WriteLine(fator);
+                    Console.WriteLine("Informe - [1]Reajuste Total [2]Reajuste por Categoria [3]Reajuste por Produto \n");
+                    Console.Write("Opção: ");
+                    int valor;
+                    if(int.TryParse(Console.ReadLine(), out valor))
+                    {
+                        switch(valor)
+                        {
+                            case 1:
+                                View.ReajusteTotalPreco(percentual);
+                                break;
+                            case 2:
+                                ManterCategorias.ListarCategorias();
+                                Console.Write("\nInforme o Nº do Cadastro da Categoria cujo Produtos terão o Reajuste no Preço: ");
+                                int idCategoria;
+                                if(int.TryParse(Console.ReadLine(), out idCategoria))
+                                {
+                                    View.VerificarIdCategorias(idCategoria);
+                                    View.ReajusteCategoriaPreco(percentual, idCategoria);
+                                } else Console.WriteLine("O valor informado é inválido para essa Operação! \n");
+                                break;
+                            case 3:
+                                ListarProdutos();
+                                Console.Write("\nInforme o Nº do Cadastro do Produto que terá o Reajuste no Preço: ");
+                                int idProduto;
+                                if(int.TryParse(Console.ReadLine(), out idProduto))
+                                {
+                                    View.VerificarIdProdutos(idProduto);
+                                    View.ReajusteProdutoPreco(percentual, idProduto);
+                                } else Console.WriteLine("O valor informado é inválido para essa Operação! \n");
+                                break;
+                            default:
+                                Console.WriteLine("\nA Operação informada não existe! Informe valores de 1 a 3. \n");
+                                break;
+                        }
+                    } else Console.WriteLine("O valor informado é inválido para essa Operação! \n");
+                } else Console.WriteLine("O Percentual de Reajuste não pode ser descrescimos ou acrescimos de 50% ou mais!");
+            } else Console.WriteLine("O valor informado é inválido para essa Operação! \n");
+        } else throw new InvalidOperationException("Não há nenhum Produto cadastrado! \n");
     }
 }
 
