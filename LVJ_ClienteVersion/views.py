@@ -1,6 +1,6 @@
 from Models.cliente_model import Cliente
 from Models.categoria_model import Categoria
-from Models.produto_model import produto
+from Models.produto_model import Produto
 from Models.persistencia_model import *
 
 

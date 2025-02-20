@@ -1,12 +1,6 @@
-from Models.cliente_model import Cliente
-from Models.categoria_model import Categoria
-from Models.persistencia_model import *
-from Models.produto_model import Produto
-from Models.produto_venda_model import ProdutoVenda
-from Models.venda_model import Venda
-from Models.forma_pagamento_model import FormaPagamento
-from Models.forma_pagamento_model import FormaPagamento
-
+from templates.manterclienteUI import ManterClienteUI
+from templates.abrircontaUI import AbrirContaUI
+from templates.loginUI import LoginUI
 from views import View
 
 import streamlit as st
