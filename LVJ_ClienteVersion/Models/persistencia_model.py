@@ -53,7 +53,7 @@ class Persistencia(Generic[T]):
 
 # Classes que herdam de Persistencia
 
-class Usuarios(Persistencia):
+class Clientes(Persistencia):
     def __init__(self):
         super().__init__('Banco_Dados/lista_usuarios.json')
 
