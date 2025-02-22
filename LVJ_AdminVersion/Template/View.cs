@@ -6,9 +6,9 @@ static class View
     private static Usuarios usuarios = new Usuarios();
     private static Categorias categorias = new Categorias();
     private static Produtos produtos = new Produtos();
-    private static ProdutosVendas produtosVendas = new ProdutosVendas();
-    private static Vendas vendas = new Vendas();
-    private static FormasPagamento formasPagemento = new FormasPagamento();
+    public static ProdutosVendas produtosVendas = new ProdutosVendas();
+    public static Vendas vendas = new Vendas();
+    private static FormasPagamento formasPagamento = new FormasPagamento();
     private static List<string> erros = new List<string>();
 
     public static void CriarAdmin()
@@ -18,7 +18,8 @@ static class View
 
     public static bool ValidarLogin(string email, string senha, out int idLogado)
     {
-        foreach(Usuario x in ListarUsuarios()) if(x.email == email && x.senha == senha) {idLogado = x.id; return true;}
+        Usuario logado = ListarUsuarios().SingleOrDefault(x => x.email == email && x.senha == senha && x.admin);
+        if(logado != null) {idLogado = logado.id; return true;}
         idLogado = 0;
         return false;
     }
@@ -36,7 +37,7 @@ static class View
         if(string.IsNullOrWhiteSpace(nome)) erros.Add("\tO campo Nome deve ser preenchido!");
         else
         {
-            string[] palavrasNaoFormatadas = new string[] {"de", "da", "do", "das", "dos", "e", "a", "as", "os"};
+            string[] palavrasNaoFormatadas = {"de", "da", "do", "das", "dos", "e", "a", "as", "os"};
             TextInfo textInfo = new CultureInfo("pt-BR", false).TextInfo;
 
             nome = textInfo.ToTitleCase(nome.ToLower());
@@ -44,6 +45,7 @@ static class View
 
             nomeFormatado = string.Join(" ", nomeFragmentado);
         }
+
         // Verificação de E-mail dos Usuários
         if(string.IsNullOrWhiteSpace(email)) erros.Add("\tO campo E-mail deve ser preenchido!");
         else
@@ -51,6 +53,7 @@ static class View
             if(!regex.IsMatch(email)) erros.Add("\tO E-mail informado é inválido!");
             if(!string.IsNullOrWhiteSpace(emailAlterado) && ListarUsuarios().Exists(x => x.email == email)) erros.Add("\tO E-mail informado já está cadastrado!");
         }
+
         // Verificação de Senha dos Usuários
         if(string.IsNullOrWhiteSpace(senha)) erros.Add("\tO campo Senha deve ser preenchido!");
         else
@@ -63,6 +66,7 @@ static class View
         {
             // Verificação de Endereço dos Clientes
             if(string.IsNullOrWhiteSpace(endereco)) erros.Add("\tO campo Endereço deve ser preenchido!");
+
             // Verificação de CEP dos Clientes
             if(string.IsNullOrWhiteSpace(cep)) erros.Add("\tO campo CEP deve ser preenchido!");
             else
@@ -70,6 +74,7 @@ static class View
                 if(cep.Length != 8) erros.Add("\tO CEP deve conter apenas 8 caracteres númericos!");
                 if(!cep.All(char.IsDigit)) erros.Add("\tO CEP deve conter apenas digítos númericos");
             }
+
             // Verificação de CPF dos Clientes
             if(string.IsNullOrWhiteSpace(cpf)) erros.Add("\tO campo CPF deve ser preenchido!");
             else
@@ -81,7 +86,7 @@ static class View
         }
 
         // Verificar se há erros
-        if(erros.Count > 0) throw new ArgumentException($"----- Cadastro Não Realizado! Erros Encontrados ----- \n{string.Join(Environment.NewLine, erros)} \n");
+        if(erros.Count > 0) throw new ArgumentException($"\n----- Cadastro Não Realizado! Erros Encontrados ----- \n{string.Join(Environment.NewLine, erros)} \n");
     }
 
     public static void InserirUsuarios(string nome, string email, string senha, string endereco, string cep, string cpf, bool admin)
@@ -166,7 +171,7 @@ static class View
         if(desconto < 0 || desconto > 75) erros.Add("\tO Desconto da Categoria deve ser entre 0% e 75%!");
 
         // Verificar se há erros
-        if(erros.Count > 0) throw new ArgumentException($"----- Cadastro Não Realizado! Erros Encontrados ----- \n{string.Join(Environment.NewLine, erros)} \n");
+        if(erros.Count > 0) throw new ArgumentException($"\n----- Cadastro Não Realizado! Erros Encontrados ----- \n{string.Join(Environment.NewLine, erros)} \n");
     }
 
     public static void InserirCategorias(string descricao, double desconto)
@@ -185,7 +190,7 @@ static class View
         Categoria x = ObterCategorias(id);
 
         // Verificar se há Produtos Cadastrados vinculados ao Cadastro da Categoria que será removida
-        if(ListarProdutos().Exists(x => x.idCategoria == id)) throw new InvalidOperationException("Há Produtos cadastrados nessa Categoria! Faça a Remoção ou a Atualização do Cadastro desses Produtos! \n");
+        if(ListarProdutos().Exists(x => x.idCategoria == id)) throw new InvalidOperationException("Há Produtos cadastrados nessa Categoria! Faça a Remoção ou a Atualização do Cadastro desses Produtos antes de Remover a Categoria! \n");
 
         // Remover o Cadastro da Categoria
         categorias.Remover(x);
@@ -236,13 +241,13 @@ static class View
         if(string.IsNullOrWhiteSpace(descricao)) erros.Add("\tO campo Descrição deve ser preenchido!");
 
         // Verificação de Preço dos Produtos
-        if(preco < 0) erros.Add("\tO Preço do Produto deve ser maior que R$ 0,00!");
+        if(preco <= 0) erros.Add("\tO Preço do Produto deve ser maior que R$ 0,00!");
 
         // Verificação do Estoque dos Produtos
         if(estoque < 0) erros.Add("\tO Estoque do Produto não pode ser negativo!");
 
         // Verificar se há erros
-        if(erros.Count > 0) throw new ArgumentException($"----- Cadastro Não Realizado! Erros Encontrados ----- \n{string.Join(Environment.NewLine, erros)} \n");
+        if(erros.Count > 0) throw new ArgumentException($"\n----- Cadastro Não Realizado! Erros Encontrados ----- \n{string.Join(Environment.NewLine, erros)} \n");
     }
 
     public static void InserirProdutos(string descricao, double preco, int estoque, bool digital, int idCategoria)
@@ -270,7 +275,7 @@ static class View
         Produto x = ObterProdutos(id);
 
         // Atualização de Dados do Cadastro do Produto
-        if(!string.IsNullOrEmpty(descricao) || (preco != x.preco && preco != -1) || (estoque != x.preco && estoque != -1) || (digital != x.digital && chave == 1) || (idCategoria != x.idCategoria && idCategoria != -1))
+        if(!string.IsNullOrEmpty(descricao) || (preco != x.preco && preco != -1) || (estoque != x.estoque && estoque != -1) || (digital != x.digital && chave == 1) || (idCategoria != x.idCategoria && idCategoria != -1))
         {
             if(!string.IsNullOrEmpty(descricao)) x.descricao = descricao;
             if(preco != x.preco && preco != -1) x.preco = preco;
@@ -306,13 +311,16 @@ static class View
     public static void ReajusteTotalPreco(double percentual)
     {   
         // Atualizar, com o Reajuste de Preço, todos os Produtos
-        ListarProdutos().ForEach(x => {x.preco *= percentual; produtos.Atualizar(x);});
+        ListarProdutos().ToList().ForEach(x => {x.preco *= percentual; produtos.Atualizar(x);});
     }
 
     public static void ReajusteCategoriaPreco(double percentual, int idCategoria)
     {
+        // Lista de Produtos para Atualizar o Preço
+        List<Produto> produtosAtualizar = ListarProdutos().Where(x => x.idCategoria == idCategoria).ToList();
+
         // Atualizar, com o Reajuste de Preço, todos os Produtos da Categoria
-        foreach(Produto x in ListarProdutos()) if(x.idCategoria == idCategoria) {x.preco *= percentual; produtos.Atualizar(x);}
+        produtosAtualizar.ForEach(x => {x.preco *= percentual; produtos.Atualizar(x);});
     }
 
     public static void ReajusteProdutoPreco(double percentual, int idProduto)
@@ -323,5 +331,180 @@ static class View
         // Atualizar, com o Reajuste de Preço, o Produto
         x.preco *= percentual;
         produtos.Atualizar(x);
+    }
+
+    public static List<ProdutoVenda> ListarProdutosVendas()
+    {
+        return produtosVendas.Listar();
+    }
+
+    public static ProdutoVenda ObterProdutosVendas(int id)
+    {
+        // Obter o Produto de Venda cujo ID foi informado
+        return produtosVendas.ListarId(id);
+    }
+
+    public static List<ProdutoVenda> ObterListaProdutosVendas(int idVenda)
+    {
+        // Obter uma Lista de Produtos de uma Venda
+        return ListarProdutosVendas().Where(y => y.idVenda == idVenda).ToList();
+    }
+
+    public static void RemoverVendas(int id)
+    {
+        // Venda cujo Cadastro será removido
+        Venda x = ObterVendas(id);
+
+        // Verificar se a Venda foi fechada
+        if(x.carrinho) throw new InvalidOperationException("Essa Venda informada não foi fechada ainda! O Cliente deve fazer a compra para habilitar a operação de remover venda!");
+
+        // Atualizar o estoque dos Produtos que estão na Venda a ser removida
+        List<ProdutoVenda> produtosVendaCliente = ObterListaProdutosVendas(id);
+        produtosVendaCliente.ForEach(y => 
+        {
+            Produto z = ListarProdutos().SingleOrDefault(z => z.id == y.idProduto);
+            z.estoque += y.quantidade; 
+            produtos.Atualizar(z);
+            produtosVendas.Remover(y);
+        });
+
+        // Remover o Cadastro do Produto 
+        vendas.Remover(x);
+    }
+
+    public static List<Venda> ListarVendas()
+    {
+        return vendas.Listar();
+    }
+
+    public static void InformaEntregas(int id, List<Venda> vendasEntregar)
+    {
+        Venda x = ObterVendas(id);
+        if(vendasEntregar.Exists(y => y.id == x.id))
+        {
+            List<ProdutoVenda> produtosVenda = ObterListaProdutosVendas(x.id).Where(x => x.recebido == false && x.resgate == false).ToList();
+            // Atualizar Entrega de Produtos da Venda
+            produtosVenda.ForEach(y => {y.recebido = true; produtosVendas.Atualizar(y);});
+        } else throw new ArgumentException($"O Nº informado não corresponde a nenhuma Venda não entregue! Informe um valor correspondente a uma das Vendas listados. \n");
+    }
+
+    public static void VerificarIdVendas(int id)
+    {
+        // Encontrar a Venda cujo ID de Cadastro foi Informado
+        if(ObterVendas(id) == null) throw new ArgumentException($"O Nº informado não corresponde a nenhuma Venda! Informe um valor correspondente a uma das Vendas listadas. \n");
+    }
+
+    public static List<Venda> ObterListaVendasEntregar()
+    {
+        List<Venda> vendasEntrega = ListarVendas().Where(x => !x.carrinho && x.frete != 0).ToList();
+        vendasEntrega.ToList().ForEach(x => 
+        {
+            List<ProdutoVenda> produtosVenda = ObterListaProdutosVendas(x.id);
+            bool venda = false;
+            produtosVenda.ForEach(x => {
+                if(x.recebido == false && x.resgate == false)
+                {
+                    venda = true;
+                }
+            });
+            
+            if(!venda) vendasEntrega.Remove(x);
+        });
+
+        return vendasEntrega;
+    }
+
+    public static Venda ObterVendas(int id)
+    {
+        return vendas.ListarId(id);
+    }
+
+    public static void ValidarDadosFormasPagamento(string descricao, int parcelas, double percentual, int diaVencimento)
+    {
+        // Evitar acumulo de erros anteriores
+        erros.Clear();
+
+        // Verificação de Descrição das Formas de Pagamento
+        if(string.IsNullOrWhiteSpace(descricao)) erros.Add("\tO campo Descrição deve ser preenchido!");
+
+        // Verificação da Quantidade de Parcelas das Formas de Pagamento
+        if(parcelas < 1) erros.Add("\tA Forma de Pagamento deve possui pelo menos uma Parcela!");
+
+        // Verificação do Percentual de Desconto/Juros das Formas de Pagamento
+        if(percentual < -15 && percentual > 10) erros.Add("\tA Forma de Pagamento pode ter no mínimo 15% de Desconto e no máximo 10% de Juros!");
+
+        // Verificação da Quantidade de Dias para o Vencimento na Forma de Pagamento
+        if(diaVencimento < 0) erros.Add("\tA Quantidade de Dias para o Vencimento não pode ser um valor negativo!");
+
+        // Verificar se há erros
+        if(erros.Count > 0) throw new ArgumentException($"\n----- Cadastro Não Realizado! Erros Encontrados ----- \n{string.Join(Environment.NewLine, erros)} \n");
+    }
+
+    public static void InserirFormasPagamento(string descricao, int parcelas, double percentual, int diaVencimento)
+    {
+        // Validação de Dados da Forma de Pagamento
+        ValidarDadosFormasPagamento(descricao, parcelas, percentual, diaVencimento);
+
+        // Inserir o Cadastro da Forma de Pagamento
+        FormaPagamento x = new FormaPagamento(0, descricao, parcelas, percentual, diaVencimento);
+        formasPagamento.Inserir(x);
+    }
+
+    public static void RemoverFormasPagamento(int id)
+    {
+        // Forma de Pagamento cujo Cadastro será removido
+        FormaPagamento x = ObterFormasPagamento(id);
+
+        // Remover o Cadastro da Forma de Pagamento
+        formasPagamento.Remover(x);
+    }
+
+    public static void AtualizarFormasPagamento(int id, string descricao, int parcelas, double percentual, int diaVencimento)
+    {
+        // Forma de Pagamento cujo Cadastro será atualizado
+        FormaPagamento x = ObterFormasPagamento(id);
+
+        // Atualização de Dados do Cadastro da Forma de Pagamento
+        if(!string.IsNullOrEmpty(descricao) || (parcelas != x.parcelas && parcelas != -1) || (percentual != x.percentual && percentual != -1) || (diaVencimento != x.diaVencimento && diaVencimento != -1))
+        {
+            if(!string.IsNullOrEmpty(descricao)) x.descricao = descricao;
+            if(parcelas != x.parcelas && parcelas != -1) x.parcelas = parcelas;
+            if(percentual != x.percentual && percentual != -1) x.percentual = percentual;
+            if(diaVencimento != x.diaVencimento && diaVencimento != -1) x.diaVencimento = diaVencimento;
+        }
+
+        // Validação de Dados da Forma de Pagamento
+        ValidarDadosFormasPagamento(x.descricao, x.parcelas, x.percentual, x.diaVencimento);
+
+        // Atualizar o Cadastro da Forma de Pagamento
+        formasPagamento.Atualizar(x);
+    }
+
+    public static List<FormaPagamento> ListarFormasPagamento()
+    {
+        return formasPagamento.Listar();
+    }
+
+    public static void VerificarIdFormasPagamento(int id)
+    {
+         // Encontrar o Produto cujo ID de Cadastro foi Informado
+        if(ObterFormasPagamento(id) == null) throw new ArgumentException($"O Nº informado não corresponde a nenhuma Forma de Pagamento! Informe um valor correspondente a uma das Formas de Pagamento listados. \n");
+    }
+
+    public static FormaPagamento ObterFormasPagamento(int id)
+    {
+        return formasPagamento.ListarId(id);
+    }
+
+    public static List<IGrouping<int, Venda>> ObterVendasGeral()
+    {
+        // Obter a Lista de todas as Vendas Fechadas de todos os Clientes
+        return ListarVendas().Where(x => !x.carrinho).GroupBy(x => x.idCliente).ToList();
+    }
+
+    public static IGrouping<int, Venda> ObterVendasCliente(List<IGrouping<int, Venda>> vendasClientes, int idCliente)
+    {
+        // Obter um Agrupamento de todas as Vendas de um Cliente
+        return vendasClientes.FirstOrDefault(x => x.Key == idCliente);
     }
 }

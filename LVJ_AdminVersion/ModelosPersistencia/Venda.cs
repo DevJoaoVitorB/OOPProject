@@ -29,9 +29,9 @@ class Venda
     {
         if(carrinho == true)
         {
-           return $"[{id}] \n\tStatus: Aberta \n\tFrete: {frete.ToString("C", new CultureInfo("pt-BR"))} \n\tTotal a Pagar: {total.ToString("C", new CultureInfo("pt-BR"))} \n\tParcela: {parcela.ToString("C", new CultureInfo("pt-BR"))} \n";   
+           return $"[{id}]\tStatus: Aberta \n\tFrete: {frete.ToString("C", new CultureInfo("pt-BR"))} \n\tTotal a Pagar: {total.ToString("C", new CultureInfo("pt-BR"))} \n\tParcela: {parcela.ToString("C", new CultureInfo("pt-BR"))} \n";   
         } else {
-            return $"[{id}] \n\tDia da Compra: {dia.AddHours(-3).ToString("dd/MM/yyyy HH:mm", new CultureInfo("pt-BR"))} \n\tStatus: Fechada \n\tFrete: R${frete:f2} \n\tTotal a Pagar: {total.ToString("C", new CultureInfo("pt-BR"))} \n\tParcela: {parcela.ToString("C", new CultureInfo("pt-BR"))} \n\tData de Vencimento: {vencimento.AddHours(-3).ToString("dd/MM/yyyy HH:mm", new CultureInfo("pt-BR"))} \n";   
+            return $"[{id}]\tDia da Compra: {dia.AddHours(-3).ToString("dd/MM/yyyy HH:mm", new CultureInfo("pt-BR"))} \n\tStatus: Fechada \n\tFrete: {frete.ToString("C", new CultureInfo("pt-BR"))} \n\tTotal a Pagar: {total.ToString("C", new CultureInfo("pt-BR"))} \n\tParcela: {parcela.ToString("C", new CultureInfo("pt-BR"))} \n\tData de Vencimento: {vencimento.AddHours(-3).ToString("dd/MM/yyyy HH:mm", new CultureInfo("pt-BR"))} \n";   
         }
     }
 }
