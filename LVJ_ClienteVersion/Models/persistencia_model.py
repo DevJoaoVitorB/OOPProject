@@ -12,13 +12,18 @@ class Persistencia(Generic[T]):
 
     def inserir(self, objeto: T):
         self.abrir()
-        objeto_id = getattr(objeto, 'id', None)
-        if objeto_id is not None:
-            novo_id = max([getattr(o, 'id', 0) for o in self.objetos], default=0) + 1
-            setattr(objeto, 'id', novo_id)
-        self.objetos.append(objeto)
-        self.salvar()
 
+        novo_id = max((obj.get('id', 0) for obj in self.objetos), default=0) + 1
+        
+        if not isinstance(objeto, dict):
+            objeto_dict = {key.lstrip('_'): value for key, value in objeto.__dict__.items()}
+        else:
+            objeto_dict = objeto
+
+        objeto_dict['id'] = novo_id  
+
+        self.objetos.append(objeto_dict)
+        self.salvar()
     def remover(self, objeto: T):
         self.objetos = [o for o in self.objetos if getattr(o, 'id', None) != getattr(objeto, 'id', None)]
         self.salvar()
@@ -35,9 +40,14 @@ class Persistencia(Generic[T]):
         self.abrir()
         return self.objetos
 
-    def listar_id(self, id: int) -> Optional[T]:
+    def listar_id(self, id: int) -> Optional[dict]:
         self.abrir()
-        return next((o for o in self.objetos if getattr(o, 'id', None) == id), None)
+
+        for obj in self.objetos:
+            if obj.get("id") == id: 
+                return obj
+
+        return None
 
     def abrir(self):
         self.objetos.clear()
@@ -48,12 +58,41 @@ class Persistencia(Generic[T]):
             self.objetos = []
 
     def salvar(self):
-        with open(self.filename, 'w', encoding='utf-8') as f:
-            json.dump(self.objetos, f, default=lambda o: o.__dict__, indent=4)
+        with open(self.filename, "w") as arquivo:
+            json.dump(self.objetos, arquivo, default=lambda o: o.to_json(), indent=4)
+
+    def inserir_no_carrinho(self, objeto):
+        self.abrir()
+
+        id_venda_atual = self.carregar_id_venda_atual()
+
+        if not isinstance(objeto, dict):
+            objeto_dict = {key.lstrip('_'): value for key, value in objeto.to_json().items()}
+        else:
+            objeto_dict = objeto
+
+        objeto_dict["idVenda"] = id_venda_atual
+
+        self.objetos.append(objeto_dict)
+        self.salvar()
+
+    def salvar_id_venda_atual(self, id_venda):
+        with open("id_venda_atual.json", "w") as f:
+            json.dump({"idVendaAtual": id_venda}, f)
+
+    def carregar_id_venda_atual(self):
+        if os.path.exists("id_venda_atual.json"):
+            with open("id_venda_atual.json", "r") as f:
+                data = json.load(f)
+                return data.get("idVendaAtual", 1)
+        return 1
+
+    def ultimo_id_venda(self):
+        self.abrir()
+        return max((obj.get('idVenda', 0) for obj in self.objetos), default=0)
 
 # Classes que herdam de Persistencia
-
-class Usuarios(Persistencia):
+class Clientes(Persistencia):
     def __init__(self):
         super().__init__('Banco_Dados/lista_usuarios.json')
 

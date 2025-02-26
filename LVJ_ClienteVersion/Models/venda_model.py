@@ -1,6 +1,4 @@
-# class Usuario
 class Venda:
-
     def __init__(self, id, dia, carrinho, frete, total, parcela, vencimento, id_cliente, id_forma_pagamento):
         self.id = id
         self.dia = dia
@@ -12,7 +10,23 @@ class Venda:
         self.id_cliente = id_cliente
         self.id_forma_pagamento = id_forma_pagamento
 
+    
+    def to_json(self):
+        dic = {}
+        dic["id"] = self._id
+        dic["dia"] = self._dia
+        dic["carrinho"] = self._carrinho
+        dic["frete"] = self._frete
+        dic["total"] = self._total
+        dic["parcela"] = self._parcela
+        dic["vencimento"] = self._vencimento
+        dic["idCliente"] = self._id_cliente
+        dic["idFormaPagamento"] = self._id_forma_pagamento
+
+        return dic
+
         
+
     @property
     def id(self):
         return self._id

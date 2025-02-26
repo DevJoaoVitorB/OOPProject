@@ -2,8 +2,14 @@ class Categoria:
     def __init__(self, id, descricao, desconto):
         self._id = id
         self._descricao = descricao
-        self._desconto = desconto
+        self._desconto = desconto 
+    def to_json(self):
+        dic = {}
+        dic["id"] = self._id
+        dic["descricao"] = self._descricao
+        dic["desconto"] = self._desconto
 
+        return dic
 
     @property
     def id(self):

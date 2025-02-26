@@ -1,13 +1,27 @@
-class Usuario:
+class Cliente:
     def __init__(self, id, nome, email, senha, endereco, cep, cpf, admin):
-        self.id = id
-        self.nome = nome
-        self.email = email
-        self.senha = senha
-        self.endereco = endereco
-        self.cep = cep
-        self.cpf = cpf
-        self.admin = admin
+        self._id = id
+        self._nome = nome
+        self._email = email
+        self._senha = senha
+        self._endereco = endereco
+        self._cep = cep
+        self._cpf = cpf
+        self._admin = admin
+    
+    def to_json(self):
+        dic = {}
+        dic["id"] = self._id
+        dic["nome"] = self._nome
+        dic["email"] = self._email
+        dic["senha"] = self._senha
+        dic["endereco"] = self._endereco
+        dic["cep"] = self._cep
+        dic["cpf"] = self._cpf
+        dic["admin"] = self._admin
+
+        return dic
+        
             
     
     @property
@@ -35,6 +49,14 @@ class Usuario:
     @email.setter
     def email(self, novo_email):
         self._email = novo_email
+   
+    @property
+    def senha (self):
+        return self._senha
+    
+    @senha.setter
+    def senha(self, nova_senha):
+        self._senha = nova_senha
 
     
     @property

@@ -10,6 +10,23 @@ class ProdutoVenda:
         self.recebido = recebido
         self.id_produto = idProduto
         self.idVenda = idVenda
+    
+    def to_json(self):
+        dic = {}
+        dic["id"] = self._id
+        dic["quantidade"] = self._quantidade
+        dic["precoProduto"] = self._preco_produto
+        dic["precoTotal"] = self._preco_total
+        dic["resgate"] = self._resgate
+        dic["codigo"] = self._codigo
+        dic["enviado"] = self._enviado
+        dic["recebido"] = self._recebido
+        dic["idProduto"] = self._id_produto
+        dic["idVenda"] = self.idVenda
+
+        return dic
+
+        
     @property
     def id(self):
         return self._id

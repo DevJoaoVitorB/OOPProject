@@ -1,11 +1,21 @@
 class FormaPagamento:
-    def __init__(self, id, descricao, percentual, parcelas, diaVencimento):
+    def __init__(self, id, descricao,  parcelas, percentual, diaVencimento):
         self._id = id
         self._descricao = descricao
-        self._percentual = percentual
         self._parcelas = parcelas
+        self._percentual = percentual
         self._diaVencimento = diaVencimento
-   
+
+    def to_json(self):
+        dic = {}
+        dic["id"] = self._id
+        dic["descricao"] = self._descricao
+        dic["percentual"] = self._percentual
+        dic["parcelas"] = self._parcelas
+        dic["diaVencimento"] = self._diaVencimento
+
+        return dic
+
     @property
     def id(self):
         return self._id

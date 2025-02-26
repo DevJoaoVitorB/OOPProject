@@ -6,9 +6,18 @@ class Produto:
         self.preco = preco
         self.estoque = estoque
         self.digital = digital
-        self.idCategoria = idCategoria
+        self.id_categoria = idCategoria
+    
+    def to_json(self):
+        dic = {}
+        dic["id"] = self._id
+        dic["descricao"] = self._descricao
+        dic["preco"] = self._preco
+        dic["estoque"] = self._estoque
+        dic["digital"] = self._digital
+        dic["idCategoria"] = self._id_categoria
 
-
+        return dic    
 
     @property
     def id(self):
@@ -51,11 +60,11 @@ class Produto:
 
 
     @property
-    def idCategoria(self):
-        return self._idCategoria
-    @idCategoria.setter
-    def idCategoria(self, novo_idCategoria):
-        self._idCategoria = novo_idCategoria
+    def id_categoria(self):
+        return self.id_categoria
+    @id_categoria.setter
+    def id_categoria(self, novoid_categoria):
+        self.id_categoria = novoid_categoria
 
 
     def __str__(self):
