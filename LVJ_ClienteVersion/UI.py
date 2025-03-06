@@ -10,7 +10,7 @@ class UI:
     
     @staticmethod
     def menu_visitante():
-        print("1 - Abrir conta,\n2 - Entrar no Sistema,\n3 - Listar de Produtos,\n99 - Fim\n")
+        print("1 - Abrir conta,\n2 - Entrar no Sistema,\n3 - Listar de Produtos,\n99 - Sair\n")
         op = int(input("\nInforme uma opção:"))
         if op == 1: UI.visitante_abrir_conta()
         if op == 2: UI.visitante_entrar_no_sistema()
