@@ -36,6 +36,34 @@ class Persistencia(Generic[T]):
                 self.salvar()
                 return
 
+    def atualizar_carrinho(self, objeto: T):
+        """
+        Atualiza um produto no carrinho. Se a quantidade for 0, remove o item.
+        """
+        self.abrir()
+        for i, o in enumerate(self.objetos):
+            if isinstance(o, dict):  # Se for dicionário, comparar diretamente
+                if o.get('id') == objeto.id and o.get('idProduto') == objeto.id_produto:
+                    if objeto.quantidade > 0:
+                        print(f"🔄 Atualizando produto ID {o['idProduto']} no carrinho...")
+                        self.objetos[i] = objeto.to_json()  # Chama o método to_json
+                    else:
+                        print(f"🗑️ Removendo produto ID {o['idProduto']} do carrinho...")
+                        self.objetos.pop(i)  # Remove produto se a quantidade for 0
+                    self.salvar()
+                    return
+            elif getattr(o, 'id', None) == getattr(objeto, 'id', None) and getattr(o, 'idProduto', None) == getattr(objeto, 'idProduto', None):
+                if objeto.quantidade > 0:
+                    print(f"🔄 Atualizando produto ID {o.idProduto} no carrinho...")
+                    self.objetos[i] = objeto.to_json()  # Chama o método to_json
+                else:
+                    print(f"🗑️ Removendo produto ID {o.idProduto} do carrinho...")
+                    self.objetos.pop(i)
+                self.salvar()
+                return
+        
+        print("Produto não encontrado no carrinho.")
+
     def listar(self) -> List[T]:
         self.abrir()
         return self.objetos

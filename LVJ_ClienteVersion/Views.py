@@ -61,9 +61,9 @@ class View:
         if nova_quantidade < 0:
             print("Quantidade a ser removida é maior do que a quantidade atual.")
             return
-        view = View()
+        # view = View()
         c = ProdutoVenda(id_do_usuario, nova_quantidade, preco, novo_preco_total, resgate, codigo, enviado, recebido, id_produto, id_venda)
-        view.venda.atualizar(c)
+        self.venda.atualizar_carrinho(c)
 
     def carrinho_listar(self):
         return self.venda.listar()

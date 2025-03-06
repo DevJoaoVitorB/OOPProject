@@ -17,38 +17,43 @@ class UI:
         return op
 
     def menu_cliente():
-        print("1 - Listar Produtos Do Catálogo, 2 - Listar Produtos Do Carrinho, 3 - Adicionar Produto no Carrinho, 4 - Fechar Pedido, 5 - Ver Meus Pedidos, 6 - Atualizar Produto, 7 - Remover Produto\n")
-        print("8 - Realizar Nova Compra, 9 - Fechar Minha Compra, 10 - Listar Minhas Compras, 11 - Listar Minhas Entregas, 12 - Resgatar Meu Produto Digital,\n")
-        print("0 - Sair, 99 - Fim\n")
+        print("1 - Listar produtos do catálogo (OK), 2 - Listar produtos do carrinho (OK), 3 - Adicionar produto no carrinho (OK), 4 - Atualizar produto do carrinho (OK), 5 - Remover produto do carrinho (OK), 6 - Realizar nova compra\n")
+        print("7 - Fechar compra, 8 - Ver meus pedidos, 9 - Resgatar meu produto digital, - SAIR, 99 - FIM\n")
+        print("99 - Fim\n")
+
+        # 1 - Listar produtos do catálogo (OK), 2 - listar produtos do carrinho (OK), 3 - adicionar produto no carrinho (OK), 4 - atualizar produto do carrinho (+/-), 5 - remover produto do carrinho, 6 - realizar nova compra 
+        # 7 - fechar compra, 8 - ver meus pedidos, 9 - Resgatar meu produto digital, - SAIR, 99 - FIM
+
         opcao = int(input("\nInforme uma opção:"))
         if opcao == 0:
+            # CONCLUIDA
             UI.sair_do_sistema()
         if opcao == 1:
+            # CONCLUIDA
             UI.produto_listar()
         if opcao == 2:
+            # CONCLUIDA
             UI.cliente_listar_produto()
         if opcao == 3:
+            # CONCLUIDA
             UI.produto_listar()
             UI.cliente_adicionar_produto()
         if opcao == 4:
-            # UI.cliente_fechar_pedido()
-            pass
-        if opcao == 5:
-            UI.cliente_meus_pedidos()
-        if opcao == 6:
+            # SEMI
             UI.cliente_listar_produto()
             UI.cliente_atualizar_produto()
-        if opcao == 7:
+        if opcao == 5:
+            UI.cliente_listar_produto()
             UI.cliente_remover_produto_do_carrinho()
+        if opcao == 6:
+            # UI.cliente_limpar_carrinho()
+            pass
+        if opcao == 7:
+            # UI.cliente_fechar_compra()
+            pass
         if opcao == 8:
-            UI.cliente_realizar_compra()
+            UI.cliente_meus_pedidos()
         if opcao == 9:
-            UI.cliente_fechar_compra()
-        if opcao == 10:
-            UI.cliente_listar_compras()
-        if opcao == 11:
-            UI.cliente_listar_entregas()
-        if opcao == 12:
             UI.cliente_resgatar_produtos_digitais()
         if opcao == 99:
             UI.sair_do_sistema()
@@ -116,6 +121,7 @@ class UI:
         if len(objetos) == 0:
             print("Nenhum produto cadastrado")
         else:
+            print("PRODUTOS DA LOJA DE JOGOS VIRTUAL:")
             for obj in objetos:
                 id_categoria = obj["id"]  
 
@@ -136,11 +142,11 @@ class UI:
         else:
             print("\nPRODUTOS NO CARRINHO:")
             for obj in objetos:
-                print(f"\nID do Produto: {obj.get('id_produto', 'N/A')} // Quantidade: {obj.get('quantidade', 0)} // Preço Unitário: R$ {obj.get('preco_produto', 0.0):.2f} //\n Preço Total (Quantidade x Preço): R$ {obj.get('preco_total', 0.0):.2f} // ID da Venda: {obj.get('idVenda', 'N/A')}\n")
+                print(f"\nID do Produto: {obj.get('idProduto', 'N/A')} // Quantidade: {obj.get('quantidade', 0)} // Preço Unitário: R$ {obj.get('precoProduto', 0.0):.2f} //\n Preço Total (Quantidade x Preço): R$ {obj.get('precoTotal', 0.0):.2f} // ID da Venda: {obj.get('idVenda', 'N/A')}\n")
                 
     @classmethod
     def cliente_adicionar_produto(cls):
-        print("\nADICIONANDO PRODUTOS NO CARRINHO:\n")
+        print("\nADICIONANDO PRODUTOS AO CARRINHO:\n")
 
         view = View()
         objetos = view.produto_listar()
@@ -182,69 +188,129 @@ class UI:
 
             print("Produto adicionado ao carrinho com sucesso!")
 
-    def cliente_atualizar_produto():
-
+    @classmethod
+    def cliente_atualizar_produto(cls):
         print("\nEXCLUINDO PRODUTOS DO CARRINHO:\n")
 
         view = View()
         objetos = view.carrinho_listar()
         id_venda_atual = view.id_venda_atual()
 
-        if len(objetos) == 0:
-            print("Nenhum produto cadastrado")
-        else:
-            id_produto = int(input("ID do produto a ser excluído: "))
-            quantidade_para_remover = int(input("Quantidade a ser removida: "))
-            
+        if not objetos:
+            print("Nenhum produto cadastrado.")
+            return  # Sai do método se o carrinho estiver vazio
 
-            for obj in objetos:
-                if obj["id_produto"] == id_produto and obj["idVenda"] == id_venda_atual:
-                    cliente_id = obj["id"]
-                    quantidade_atual = obj["quantidade"]
-                    preco_produto = obj["preco_produto"]
-                    compra_valor_total = obj["preco_total"]
-                    resgate = obj["resgate"]
-                    codigo = obj["codigo"]
-                    enviado = obj["enviado"]
-                    recebido = obj["recebido"]
-                    id_produto = obj["id_produto"]
-                    idVenda = obj["idVenda"]
-            
-            # 🔹 Buscando o ID da última venda para definir um novo
-            id_venda_atual = view.venda.carregar_id_venda_atual()  # Criar um método na persistência para pegar o último ID de venda
-            
-            print(f"ID do Cliente: {obj["id"]} | ID da Venda: {id_venda_atual}")
+        id_produto = int(input("ID do produto a ser excluído: "))
+        quantidade_para_remover = int(input("Quantidade a ser removida: "))
 
-            # 🔹 Envia para a View (que enviará para a persistência)
-            view.produtovenda_excluir(cliente_id, quantidade_para_remover, quantidade_atual, preco_produto,compra_valor_total, resgate, codigo, enviado, recebido, id_produto, id_venda_atual)
+        cliente_id = None
+        produto_selecionado = None
 
-            print("Produto removido do carrinho com sucesso!")
+        for obj in objetos:
+            if obj["idProduto"] == id_produto and obj["idVenda"] == id_venda_atual:
+                cliente_id = obj["id"]
+                produto_selecionado = obj
+                break  # Encontrou o produto, para o loop
+
+        if produto_selecionado is None:
+            print("Erro: Produto não encontrado no carrinho!")
+            return  # Sai do método se o produto não for encontrado
+
+        # Extraindo os valores corretos do JSON
+        quantidade_atual = produto_selecionado["quantidade"]
+        preco_produto = produto_selecionado["precoProduto"]
+        compra_valor_total = produto_selecionado["precoTotal"]
+        resgate = produto_selecionado["resgate"]
+        codigo = produto_selecionado["codigo"]
+        enviado = produto_selecionado["enviado"]
+        recebido = produto_selecionado["recebido"]
+        idVenda = produto_selecionado["idVenda"]
+
+        # Verificando se a quantidade a ser removida é válida
+        if quantidade_para_remover > quantidade_atual:
+            print("ERRO: Quantidade a ser removida é maior do que a disponível no carrinho.")
+            return
+
+        # Atualiza o ID da venda
+        id_venda_atual = view.venda.carregar_id_venda_atual()
+
+        print(f"ID do Cliente: {cliente_id} | ID da Venda: {id_venda_atual}")
+
+        # Envia para a View (que enviará para a persistência)
+        view.produtovenda_excluir(
+            cliente_id, quantidade_para_remover, quantidade_atual,
+            preco_produto, compra_valor_total, resgate, codigo,
+            enviado, recebido, id_produto, id_venda_atual
+        )
+
+        print("Produto removido do carrinho com sucesso!")
+
 
     @classmethod
     def cliente_remover_produto_do_carrinho(cls):
-        print("\nRemovendo Produto do Carrinho\n")
+        print("\REMOVENDO PRODUTO DO CARRINHO:\n")
+
+        view = View()
+        objetos = view.carrinho_listar()
+        id_venda_atual = view.id_venda_atual()
+
+        if not objetos:
+            print("Nenhum produto cadastrado.")
+            return  # Sai do método se o carrinho estiver vazio
+
+        id_produto = int(input("ID do produto a ser excluído: "))
+
+        cliente_id = None
+        produto_selecionado = None
+
+        for obj in objetos:
+            if obj["idProduto"] == id_produto and obj["idVenda"] == id_venda_atual:
+                quantidade_para_remover = obj["quantidade"]
+                cliente_id = obj["id"]
+                produto_selecionado = obj
+                break  # Encontrou o produto, para o loop
+
+        if produto_selecionado is None:
+            print("Erro: Produto não encontrado no carrinho!")
+            return  # Sai do método se o produto não for encontrado
+
+        # Extraindo os valores corretos do JSON
+        quantidade_atual = produto_selecionado["quantidade"]
+        preco_produto = produto_selecionado["precoProduto"]
+        compra_valor_total = produto_selecionado["precoTotal"]
+        resgate = produto_selecionado["resgate"]
+        codigo = produto_selecionado["codigo"]
+        enviado = produto_selecionado["enviado"]
+        recebido = produto_selecionado["recebido"]
+        idVenda = produto_selecionado["idVenda"]
+
+        # Atualiza o ID da venda
+        id_venda_atual = view.venda.carregar_id_venda_atual()
+
+        print(f"ID do Cliente: {cliente_id} | ID da Venda: {id_venda_atual}")
+
+        # Envia para a View (que enviará para a persistência)
+        view.produtovenda_excluir(
+            cliente_id, quantidade_para_remover, quantidade_atual,
+            preco_produto, compra_valor_total, resgate, codigo,
+            enviado, recebido, id_produto, id_venda_atual
+        )
+
+        print("Produto removido do carrinho com sucesso!")
+        
     
     @classmethod
     def cliente_meus_pedidos(cls):
-        print("\nMeus Pedidos:\n")
+        print("\nMEUS PEDIDOS:\n")
         #em breve será adiciona
     
-    @classmethod
-    def cliente_realizar_compra(cls):
-        print("\nRealizando nova compra")
     
     @classmethod
     def cliente_fechar_compra(cls):
-        print("\nCompra realizada com sucesso!")
-    
-    @classmethod
-    def cliente_listar_compras(cls):
-        print("\nMinhas Compras:")
-    
-    @classmethod
-    def cliente_listar_entregas(cls):
-        print("\nMinhas Entregas:")
-
+        print("FECHANDO COMPRA:")
+        dia = input("Digite a data de hoje:")
+        parcela = input("Digite o número de parcelas: (Digite 1 caso o pagamento seja a vista)")
+        idFormaPagamento = input()
     @classmethod
     def cliente_resgatar_produtos_digitais(cls):
         print("\nResgate Seu Jogo Digital Aqui!")
