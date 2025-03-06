@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "nome": "romeu",
+        "email": "rei@email.com",
+        "senha": "1234",
+        "endereco": "Av. Rei",
+        "cep": "77777-777",
+        "cpf": "777.777.777-77",
+        "admin": false
+    },
+    {
+        "id": 2,
+        "nome": "gabi",
+        "email": "gabi@email.com",
+        "senha": "1234",
+        "endereco": "Av. Rei",
+        "cep": "77777-777",
+        "cpf": "777.777.777-77",
+        "admin": false
+    },
+    {
+        "id": 3,
+        "nome": "dudu",
+        "email": "dudu@email.com",
+        "senha": "1234",
+        "endereco": "Av. Rei",
+        "cep": "77777-777",
+        "cpf": "777.777.777-77",
+        "admin": false
+    },
+    {
+        "id": 4,
+        "nome": "Gabriel",
+        "email": "gabriel@email.com",
+        "senha": "12345678",
+        "endereco": "Rua Ouro, 12",
+        "cep": "59063-122",
+        "cpf": "000.000.000-00",
+        "admin": false
+    }
+]

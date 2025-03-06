@@ -45,19 +45,19 @@ class Persistencia(Generic[T]):
             if isinstance(o, dict):  # Se for dicionário, comparar diretamente
                 if o.get('id') == objeto.id and o.get('idProduto') == objeto.id_produto:
                     if objeto.quantidade > 0:
-                        print(f"🔄 Atualizando produto ID {o['idProduto']} no carrinho...")
+                        print(f"Atualizando produto ID {o['idProduto']} no carrinho...")
                         self.objetos[i] = objeto.to_json()  # Chama o método to_json
                     else:
-                        print(f"🗑️ Removendo produto ID {o['idProduto']} do carrinho...")
+                        print(f"Removendo produto ID {o['idProduto']} do carrinho...")
                         self.objetos.pop(i)  # Remove produto se a quantidade for 0
                     self.salvar()
                     return
             elif getattr(o, 'id', None) == getattr(objeto, 'id', None) and getattr(o, 'idProduto', None) == getattr(objeto, 'idProduto', None):
                 if objeto.quantidade > 0:
-                    print(f"🔄 Atualizando produto ID {o.idProduto} no carrinho...")
+                    print(f"Atualizando produto ID {o.idProduto} no carrinho...")
                     self.objetos[i] = objeto.to_json()  # Chama o método to_json
                 else:
-                    print(f"🗑️ Removendo produto ID {o.idProduto} do carrinho...")
+                    print(f"Removendo produto ID {o.idProduto} do carrinho...")
                     self.objetos.pop(i)
                 self.salvar()
                 return

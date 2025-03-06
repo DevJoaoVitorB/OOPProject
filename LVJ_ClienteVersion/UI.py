@@ -10,16 +10,17 @@ class UI:
     
     @staticmethod
     def menu_visitante():
-        print("1 - Abrir conta, 2 - Entrar no Sistema, 99 - Fim")
+        print("1 - Abrir conta,\n2 - Entrar no Sistema,\n3 - Listar de Produtos,\n99 - Fim\n")
         op = int(input("\nInforme uma opção:"))
         if op == 1: UI.visitante_abrir_conta()
         if op == 2: UI.visitante_entrar_no_sistema()
+        if op == 3: UI.produto_listar()
         return op
 
     def menu_cliente():
-        print("1 - Listar produtos do catálogo (OK), 2 - Listar produtos do carrinho (OK), 3 - Adicionar produto no carrinho (OK), 4 - Atualizar produto do carrinho (OK), 5 - Remover produto do carrinho (OK), 6 - Realizar nova compra\n")
-        print("7 - Fechar compra, 8 - Ver meus pedidos, 9 - Resgatar meu produto digital, - SAIR, 99 - FIM\n")
-        print("99 - Fim\n")
+        print("1 - Listar produtos do catálogo, \n2 - Listar produtos do carrinho,\n3 - Adicionar produto no carrinho, \n4 - Atualizar produto do carrinho, \n5 - Remover produto do carrinho, \n6 - Realizar nova compra,\n")
+        print("7 - Fechar compra,\n8 - Ver meus pedidos,\n9 - Resgatar meu produto digital,\n")
+        print("99 - Fim")
 
         # 1 - Listar produtos do catálogo (OK), 2 - listar produtos do carrinho (OK), 3 - adicionar produto no carrinho (OK), 4 - atualizar produto do carrinho (+/-), 5 - remover produto do carrinho, 6 - realizar nova compra 
         # 7 - fechar compra, 8 - ver meus pedidos, 9 - Resgatar meu produto digital, - SAIR, 99 - FIM
@@ -49,7 +50,7 @@ class UI:
             # UI.cliente_limpar_carrinho()
             pass
         if opcao == 7:
-            # UI.cliente_fechar_compra()
+            UI.cliente_fechar_compra()
             pass
         if opcao == 8:
             UI.cliente_meus_pedidos()
@@ -121,17 +122,17 @@ class UI:
         if len(objetos) == 0:
             print("Nenhum produto cadastrado")
         else:
-            print("PRODUTOS DA LOJA DE JOGOS VIRTUAL:")
+            print("PRODUTOS DA LOJA DE JOGOS VIRTUAL:\n")
             for obj in objetos:
                 id_categoria = obj["id"]  
 
                 categorias = view.categoria_listar()
                 categoria = view.categoria_listar_id(id_categoria)
                 if categoria is None:
-                    print(f"{obj["descricao"]} - Categoria não encontrada")
+                    print(f"{obj["descricao"]} - Categoria não encontrada\n")
                 else:
-                    print(f"{obj["id"]} - {obj["descricao"]} - {categoria["descricao"]}")  # Ajustado para acessar corretamente
-
+                    print(f"{obj["id"]} - {obj["descricao"]} - {categoria["descricao"]}\n")  # Ajustado para acessar corretamente
+                
     @classmethod
     def cliente_listar_produto(cls):
         view = View()
@@ -307,10 +308,17 @@ class UI:
     
     @classmethod
     def cliente_fechar_compra(cls):
+        view = View()
+        idFormaPagamento = 0
         print("FECHANDO COMPRA:")
         dia = input("Digite a data de hoje:")
         parcela = input("Digite o número de parcelas: (Digite 1 caso o pagamento seja a vista)")
-        idFormaPagamento = input()
+        # idFormaPagamento (1 - A vista, 2 - Parcelado)
+        if parcela == 1:
+            idFormaPagamento = 1
+        else:
+            idFormaPagamento = 2
+        view.cliente_fechar_compra()
     @classmethod
     def cliente_resgatar_produtos_digitais(cls):
         print("\nResgate Seu Jogo Digital Aqui!")

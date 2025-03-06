@@ -1,0 +1,12 @@
+[
+    {
+        "id": 1,
+        "descricao": "Microsoft",
+        "desconto": 10
+    },
+    {
+        "id": 2,
+        "descricao": "Sony",
+        "desconto": 10
+    }
+]

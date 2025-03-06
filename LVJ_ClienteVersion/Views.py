@@ -49,10 +49,10 @@ class View:
         preco_total = quantidade * preco
         view = View()
 
-        # 🔹 Criando o objeto corretamente
+        # Criando o objeto corretamente
         c = ProdutoVenda(id_do_usuario, quantidade, preco, preco_total, digital, codigo, enviado, recebido, id_produto, id_venda)
 
-        # 🔹 Chamando a persistência para salvar
+        # Chamando a persistência para salvar
         view.venda.inserir_no_carrinho(c)
 
     def produtovenda_excluir(self, id_do_usuario, quantidade_para_remover, quantidade_atual, preco, valor_total, resgate, codigo, enviado, recebido, id_produto, id_venda):
@@ -71,3 +71,5 @@ class View:
     def id_venda_atual(self):
         return self.venda.carregar_id_venda_atual()
 
+    def cliente_fechar_compra(self):
+        pass
